@@ -2,10 +2,9 @@ import { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { NarrativeSection } from './components/NarrativeSection';
-import { WillermozSection } from './components/WillermozSection';
-import { RegimeSection } from './components/RegimeSection';
 import { CitiesSection } from './components/CitiesSection';
-import { AcademicSection } from './components/AcademicSection';
+import { HistoricalDocuSection } from './components/HistoricalDocuSection';
+import { CulturalFormationSection } from './components/CulturalFormationSection';
 import { ItinerarySection } from './components/ItinerarySection';
 import { InvestmentSection } from './components/InvestmentSection';
 import { ClosingSection } from './components/ClosingSection';
@@ -54,7 +53,7 @@ export default function App() {
         aria-valuemax={100}
       />
 
-      {/* Top Bar with 3-zone contract, subtle auto-hide on fast scroll, and optional audio */}
+      {/* Top Bar with 3-zone contract and optional contemplative audio */}
       <Navbar
         onOpenDossier={() => setIsDossierOpen(true)}
         isAudioActive={isAudioActive}
@@ -63,33 +62,32 @@ export default function App() {
 
       {/* Cinematic continuous experience */}
       <main>
-        {/* 04. Abertura cinematográfica */}
+        {/* 01. ABERTURA CINEMATOGRÁFICA (Lyon ao Pôr do Sol) */}
         <HeroSection onDiscover={handleDiscover} />
 
-        {/* 05. A Travessia — O Chamado da História */}
+        {/* 02. A TRAVESSIA (O Chamado da História) */}
         <NarrativeSection />
 
-        {/* 06, 07, 08. Paris, Chartres, Lyon — O Percurso */}
+        {/* 03. O PERCURSO: PARIS, CHARTRES E LYON EM TELAS PANORÂMICAS REAIS */}
         <CitiesSection />
 
-        {/* 09. Jean-Baptiste Willermoz — O Personagem Central */}
-        <WillermozSection />
+        {/* 04. NOVA SEÇÃO HISTÓRICA: AS ORIGENS DE UMA TRADIÇÃO (6 Cenas Documentais Amplas) */}
+        <HistoricalDocuSection />
 
-        {/* 10. O Regime Escocês Retificado */}
-        <RegimeSection />
+        {/* 05. NOVA SEÇÃO DE FORMAÇÃO CULTURAL: O CONHECIMENTO NÃO TERMINA NO DESTINO */}
+        <CulturalFormationSection />
 
-        {/* 11. A Experiência da Viagem & Roteiro de 10 Dias */}
-        <AcademicSection />
+        {/* 06. ROTEIRO DE 10 DIAS (Linha Narrativa Contínua Integrada) */}
         <ItinerarySection />
 
-        {/* 12. Investimento — Uma Experiência que vai Além do Turismo */}
+        {/* 07. INVESTIMENTO: UMA EXPERIÊNCIA QUE VAI ALÉM DO TURISMO */}
         <InvestmentSection onOpenDossier={() => setIsDossierOpen(true)} />
 
-        {/* 13. Encerramento — A França espera. A história continua. */}
+        {/* 08. ENCERRAMENTO CINEMATOGRÁFICO: A FRANÇA ESPERA. A HISTÓRIA CONTINUA. */}
         <ClosingSection onOpenDossier={() => setIsDossierOpen(true)} />
       </main>
 
-      {/* Dossiê application modal */}
+      {/* Modal do Dossiê Completo */}
       <DossierModal
         isOpen={isDossierOpen}
         onClose={() => setIsDossierOpen(false)}
