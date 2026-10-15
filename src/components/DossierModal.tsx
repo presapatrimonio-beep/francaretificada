@@ -309,8 +309,14 @@ export const DossierModal: React.FC<DossierModalProps> = ({ isOpen, onClose }) =
                 {errors.lgpdConsent && <p className="text-red-400 text-xs mt-1 pl-7">{errors.lgpdConsent}</p>}
               </div>
 
+              {/* Legal disclaimer note */}
+              <div className="p-3 bg-[#050708] border border-[#A7A29A]/15 text-[11px] text-[#A7A29A] leading-relaxed font-light">
+                <span className="text-[#C49A45] font-medium uppercase tracking-wider block mb-0.5">Nota Importante:</span>
+                O valor de referência é estimativo e estará sujeito a confirmação e reajuste conforme a disponibilidade e tarifas dos prestadores de serviços (companhias aéreas, hotéis, restaurantes, museus e transporte). O cadastro não gera compromisso financeiro vinculante.
+              </div>
+
               {/* Submit Button */}
-              <div className="pt-4 flex items-center justify-between gap-4">
+              <div className="pt-2 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-2 text-[11px] text-[#A7A29A] font-light">
                   <ShieldCheck className="w-4 h-4 text-[#C49A45]" />
                   <span>Seus dados permanecem confidenciais</span>

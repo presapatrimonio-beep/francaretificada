@@ -39,14 +39,22 @@ export const InvestmentSection: React.FC<InvestmentSectionProps> = ({ onOpenDoss
             </div>
           </div>
 
-          {/* Honest transparency disclosure */}
-          <div className="text-xs sm:text-sm text-[#A7A29A] leading-relaxed font-light space-y-3 max-w-3xl">
-            <p>
-              Este valor é uma estimativa inicial de planejamento e deverá ser validado antes de qualquer comercialização definitiva, mediante confirmação das tarifas aéreas internacionais, das diárias de hospedagem, dos traslados em TGV, ingressos institucionais e apólice de seguro-viagem internacional.
-            </p>
-            <p>
-              Não declaramos que todos os serviços estão incluídos até a formalização do orçamento operacional executivo. Os interessados cadastrados receberão em primeira mão o dossiê detalhado com as especificações completas de viagem.
-            </p>
+          {/* Legal disclaimer & transparency disclosure safeguarding the Colégio */}
+          <div className="space-y-4 max-w-3xl">
+            <div className="p-5 bg-[#050708]/60 border border-[#A7A29A]/20 text-xs sm:text-[13px] text-[#A7A29A] leading-relaxed font-light space-y-3">
+              <div className="text-xs uppercase tracking-[0.2em] text-[#C49A45] font-medium flex items-center gap-2">
+                <span>Ressalva Jurídica & Condições de Atualização Tarifária</span>
+              </div>
+              <p>
+                O valor apresentado possui <strong className="text-[#F0E9DC] font-normal">caráter exclusivamente preliminar e estimativo</strong> para fins de planejamento orçamentário, não configurando oferta pública vinculante nem proposta comercial definitiva nos termos do Código Civil e do Código de Defesa do Consumidor.
+              </p>
+              <p>
+                O montante final estará <strong className="text-[#F0E9DC] font-normal">expressamente sujeito a atualização e reajuste</strong> em razão de oscilações cambiais, tarifárias e da disponibilidade efetiva junto aos prestadores e fornecedores de serviços terceirizados à época da contratação, compreendendo: passagens aéreas internacionais e taxas aeroportuárias, diárias e políticas da rede hoteleira, traslados ferroviários (TGV/SNCF), serviços de alimentação e restaurantes, bilheterias e gratuidades de museus, acervos e monumentos históricos, bem como contratação de seguro-viagem internacional e operadores receptivos locais.
+              </p>
+              <p className="text-[11px] text-[#A7A29A]/80 border-t border-[#A7A29A]/15 pt-2">
+                A confirmação do preço definitivo, das condições de pagamento e do rol exato de serviços inclusos e excluídos dar-se-á formalmente por meio de contrato específico de prestação de serviços no momento da abertura oficial das inscrições. A solicitação do dossiê ou cadastro de interesse não implica reserva garantida de vaga nem obrigação pecuniária para qualquer das partes.
+              </p>
+            </div>
           </div>
 
           {/* CTA Button */}
