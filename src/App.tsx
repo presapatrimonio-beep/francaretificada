@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
+import { AtlasSection } from './components/AtlasSection';
 import { HeroSection } from './components/HeroSection';
 import { NarrativeSection } from './components/NarrativeSection';
 import { CitiesSection } from './components/CitiesSection';
@@ -41,6 +42,13 @@ export default function App() {
     }
   };
 
+  const handleProceedToExperience = () => {
+    const el = document.getElementById('abertura-lyon');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#050708] text-[#F0E9DC] selection:bg-[#C49A45]/30 selection:text-[#F0E9DC] relative">
       {/* Subtle gold line tracking scroll depth */}
@@ -62,6 +70,9 @@ export default function App() {
 
       {/* Cinematic continuous experience */}
       <main>
+        {/* 00. NOVA ABERTURA CINEMATOGRÁFICA — ATLAS DA FRANÇA RETIFICADA (Cartografia Histórica Séculos XVII-XVIII) */}
+        <AtlasSection onProceedToExperience={handleProceedToExperience} />
+
         {/* 01. ABERTURA CINEMATOGRÁFICA (Lyon ao Pôr do Sol) */}
         <HeroSection onDiscover={handleDiscover} />
 

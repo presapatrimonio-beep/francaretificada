@@ -36,6 +36,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, [mobileMenuOpen]);
 
   const navLinks = [
+    { label: 'Atlas', href: '#atlas' },
     { label: 'A Jornada', href: '#jornada' },
     { label: 'Willermoz', href: '#willermoz' },
     { label: 'O Regime', href: '#regime' },
@@ -64,8 +65,9 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between gap-8">
         {/* Brand wordmark */}
         <a
-          href="#top"
-          className="group flex items-center gap-3 whitespace-nowrap shrink-0 text-decoration-none"
+          href="#atlas"
+          onClick={(e) => handleLinkClick(e, '#atlas')}
+          className="group flex items-center gap-3 whitespace-nowrap shrink-0 text-decoration-none cursor-pointer"
         >
           <span className="font-serif text-lg md:text-xl font-normal tracking-[0.25em] text-[#F0E9DC] group-hover:text-[#C49A45] transition-colors uppercase">
             Colégio Iniciático
@@ -92,11 +94,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={onToggleAudio}
               className="hidden sm:flex items-center gap-2 text-xs uppercase tracking-widest text-[#A7A29A] hover:text-[#C49A45] transition-colors py-1 px-2"
-              title={isAudioActive ? 'Silenciar atmosfera acústica' : 'Ativar atmosfera acústica contemplativa'}
-              aria-label="Controle de áudio ambiente"
+              title={isAudioActive ? 'Pausar trilha sonora cinematográfica' : 'Ouvir trilha sonora cinematográfica (Piano & Orquestra)'}
+              aria-label="Controle de trilha sonora cinematográfica"
             >
               {isAudioActive ? <Volume2 className="w-3.5 h-3.5 text-[#C49A45]" /> : <VolumeX className="w-3.5 h-3.5" />}
-              <span className="text-[10px] hidden md:inline">{isAudioActive ? 'Atmosfera Ativa' : 'Áudio'}</span>
+              <span className="text-[10px] hidden md:inline">{isAudioActive ? 'Trilha Ativa' : 'Trilha Sonora'}</span>
             </button>
           )}
 
@@ -137,7 +139,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={onToggleAudio}
                 className="flex items-center justify-between py-2 text-xs uppercase tracking-widest text-[#A7A29A] hover:text-[#C49A45] border-b border-white/5"
               >
-                <span>Atmosfera Acústica</span>
+                <span>Trilha Cinematográfica</span>
                 <span className="text-[#C49A45]">{isAudioActive ? 'Ativada' : 'Desativada'}</span>
               </button>
             )}

@@ -24,7 +24,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onDiscover }) => {
 
   return (
     <section
-      id="top"
+      id="abertura-lyon"
       className="relative w-full h-[100svh] min-h-[640px] flex flex-col justify-between overflow-hidden bg-[#050708]"
     >
       {/* Background full-bleed photography with gentle cinematic slow motion */}
