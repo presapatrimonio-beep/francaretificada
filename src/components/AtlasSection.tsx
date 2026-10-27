@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { ChevronDown, MapPin, Compass, Eye, Maximize2, X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
+import { MapPin, Compass, Eye, Maximize2, X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCcw, Sparkles } from 'lucide-react';
 import parisImage from '../assets/images/paris_historic_dusk_1792019500631.jpg';
 import chartresImage from '../assets/images/chartres_cathedral_golden_1792019499361.jpg';
 import lyonImage from '../assets/images/hero_lyon_dusk_1792019498545.jpg';
 
 interface AtlasSectionProps {
-  onProceedToExperience: () => void;
+  onProceedToExperience?: () => void;
 }
 
 type CityKey = 'paris' | 'chartres' | 'lyon';
@@ -14,11 +14,12 @@ interface CityInfo {
   key: CityKey;
   name: string;
   coords: string;
+  stageNum: string;
   subtitle: string;
   description: string;
-  x: number;
-  y: number;
-  stageNum: string;
+  historicalSites: string[];
+  xPercent: number;
+  yPercent: number;
   image: string;
   imageCaption: string;
 }
@@ -27,995 +28,535 @@ const CITIES: Record<CityKey, CityInfo> = {
   paris: {
     key: 'paris',
     name: 'Paris',
-    coords: '48°51\'N · 02°21\'E',
+    coords: "48°51'N · 02°21'E",
     stageNum: 'I',
     subtitle: 'O Iluminismo & O Debate das Luzes',
-    description: 'O contexto intelectual e histórico da Maçonaria francesa.',
-    x: 535,
-    y: 220,
+    description:
+      'O contexto intelectual e histórico da Maçonaria francesa setecentista. O ambiente cultural no qual diferentes correntes filosóficas e sistemas maçônicos se desenvolveram às vésperas da Revolução.',
+    historicalSites: [
+      'Musée de la Franc-Maçonnerie',
+      'Rue Cadet & Grandes Orientes',
+      'Bibliothèque nationale de France (BnF)',
+      'Panthéon & Quartier Latin',
+    ],
+    xPercent: 56.4,
+    yPercent: 26.5,
     image: parisImage,
-    imageCaption: 'Paris histórica ao entardecer — Rue Cadet e o ambiente cultural do século XVIII',
+    imageCaption: 'Paris histórica ao entardecer — Rue Cadet e a memória documental do Século das Luzes',
   },
   chartres: {
     key: 'chartres',
     name: 'Chartres',
-    coords: '48°27\'N · 01°29\'E',
+    coords: "48°27'N · 01°29'E",
     stageNum: 'II',
     subtitle: 'A Pedra, a Luz & o Sagrado',
-    description: 'Arquitetura gótica, patrimônio religioso e simbolismo medieval.',
-    x: 490,
-    y: 250,
+    description:
+      'Arquitetura gótica monumental, patrimônio religioso e simbolismo medieval. A geometria sagrada, a orientação solar da nave e a teologia da luz expressa nos vitrais azuis do século XIII.',
+    historicalSites: [
+      'Cathédrale Notre-Dame de Chartres',
+      'Cripta Românica & Labirinto Gótico',
+      'Vitrais de Saint-Denis e Chartres',
+      'Oficinas Medievais de Mestres de Obra',
+    ],
+    xPercent: 48.0,
+    yPercent: 41.5,
     image: chartresImage,
-    imageCaption: 'Fachada monumental da Catedral de Chartres sob luz dourada',
+    imageCaption: 'Fachada monumental da Catedral de Chartres banhada pela luz dourada vespertina',
   },
   lyon: {
     key: 'lyon',
     name: 'Lyon',
-    coords: '45°45\'N · 04°50\'E',
+    coords: "45°45'N · 04°50'E",
     stageNum: 'III',
     subtitle: 'O Berço da Reforma Retificada',
-    description: 'Jean-Baptiste Willermoz, a Reforma de Lyon e a formação histórica do Regime Escocês Retificado.',
-    x: 668,
-    y: 435,
+    description:
+      'Jean-Baptiste Willermoz, o Convento das Gálias de 1778 e a formação histórica do Regime Escocês Retificado. A preservação dos manuscritos e rituais originais na confluência do Ródano e Saône.',
+    historicalSites: [
+      'Convento das Gálias (1778)',
+      'Acervos Willermoz (Bibliothèque municipale)',
+      'Vieux Lyon & Colina de Fourvière',
+      'Cais do Saône e Memória Martinista',
+    ],
+    xPercent: 64.0,
+    yPercent: 69.5,
     image: lyonImage,
-    imageCaption: 'Lyon ao entardecer às margens do Saône com a colina e Basílica de Fourvière',
+    imageCaption: 'Lyon ao entardecer com o rio Saône e a Basílica de Fourvière no alto da colina',
   },
 };
 
+const CITY_KEYS: CityKey[] = ['paris', 'chartres', 'lyon'];
+
 export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperience }) => {
   const [selectedCity, setSelectedCity] = useState<CityKey>('lyon');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [mapZoom, setMapZoom] = useState(1);
 
   const city = CITIES[selectedCity];
 
-  const cityKeys: CityKey[] = ['paris', 'chartres', 'lyon'];
-
   const handleNextCity = useCallback(() => {
-    const currentIndex = cityKeys.indexOf(selectedCity);
-    const nextIndex = (currentIndex + 1) % cityKeys.length;
-    setSelectedCity(cityKeys[nextIndex]);
+    const currentIndex = CITY_KEYS.indexOf(selectedCity);
+    const nextIndex = (currentIndex + 1) % CITY_KEYS.length;
+    setSelectedCity(CITY_KEYS[nextIndex]);
   }, [selectedCity]);
 
   const handlePrevCity = useCallback(() => {
-    const currentIndex = cityKeys.indexOf(selectedCity);
-    const prevIndex = (currentIndex - 1 + cityKeys.length) % cityKeys.length;
-    setSelectedCity(cityKeys[prevIndex]);
+    const currentIndex = CITY_KEYS.indexOf(selectedCity);
+    const prevIndex = (currentIndex - 1 + CITY_KEYS.length) % CITY_KEYS.length;
+    setSelectedCity(CITY_KEYS[prevIndex]);
   }, [selectedCity]);
 
-  // Handle ESC key and arrow keys to navigate/close modals
+  // Keyboard navigation for modals
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setIsModalOpen(false);
+        setIsPhotoModalOpen(false);
         setIsMapModalOpen(false);
-      } else if (isModalOpen && e.key === 'ArrowRight') {
+      } else if (isPhotoModalOpen && e.key === 'ArrowRight') {
         handleNextCity();
-      } else if (isModalOpen && e.key === 'ArrowLeft') {
+      } else if (isPhotoModalOpen && e.key === 'ArrowLeft') {
         handlePrevCity();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isModalOpen, handleNextCity, handlePrevCity]);
+  }, [isPhotoModalOpen, handleNextCity, handlePrevCity]);
 
-  const handleMarkerClick = (k: CityKey) => {
+  const handleOpenCityModal = (k: CityKey) => {
     setSelectedCity(k);
-    setIsModalOpen(true);
+    setIsPhotoModalOpen(true);
   };
 
   return (
     <section
       id="atlas"
-      className="relative w-full min-h-screen bg-[#0c1217] text-[#F0E9DC] flex flex-col justify-between select-none border-b border-[#C49A45]/20 pb-16"
+      className="relative w-full bg-[#050708] text-[#F0E9DC] selection:bg-[#C49A45]/30 selection:text-[#F0E9DC] overflow-hidden border-b border-[#A7A29A]/15"
       aria-label="Atlas da França Retificada"
     >
-      {/* Background Parchment & Cartographic Tone */}
-      <div className="absolute inset-0 bg-[#071118] pointer-events-none">
-        {/* Subtle aged paper gradient and vignette */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#13232d] via-[#09151e] to-[#04080b] opacity-95" />
-        
+      {/* Background Atmosphere: Rich dark velvet slate with subtle historical paper grain */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,_var(--tw-gradient-stops))] from-[#18232c] via-[#091016] to-[#040608]" />
         {/* Subtle antique cross-hatch paper texture simulation */}
         <div
-          className="absolute inset-0 opacity-[0.035] mix-blend-overlay"
+          className="absolute inset-0 opacity-[0.025] mix-blend-overlay"
           style={{
             backgroundImage: `radial-gradient(#C49A45 0.75px, transparent 0.75px), radial-gradient(#C49A45 0.75px, #071118 0.75px)`,
             backgroundSize: '24px 24px',
             backgroundPosition: '0 0, 12px 12px',
           }}
         />
-
-        {/* Ambient warm vignette for historical intimacy */}
-        <div className="absolute inset-0 bg-radial from-transparent via-[#050708]/40 to-[#040608]/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050708]/40 to-[#050708]" />
       </div>
 
-      {/* Editorial Header spanning above the two frames */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full pt-20 md:pt-24 pb-3">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-3 border-b border-[#A7A29A]/15">
-          <div className="space-y-1">
-            <div className="flex items-center gap-3 text-xs tracking-[0.35em] text-[#C49A45] uppercase font-medium">
-              <Compass className="w-3.5 h-3.5 text-[#C49A45]" />
-              <span>Colégio Iniciático · Cartografia Histórica · 1778–1782</span>
-            </div>
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[#F0E9DC] font-light tracking-tight leading-none">
-              Atlas da <span className="font-normal text-[#C49A45] italic">França Retificada</span>
-            </h1>
-            <p className="font-serif text-sm sm:text-base text-[#F0E9DC]/80 font-light italic">
-              Nas pegadas de Jean-Baptiste Willermoz — Paris · Chartres · Lyon
-            </p>
-          </div>
-
-          <div className="lg:text-right shrink-0 space-y-0.5">
-            <div className="text-xs uppercase tracking-[0.25em] text-[#C49A45] font-medium">
-              FRANÇA · 16–25 OUTUBRO 2027
-            </div>
-            <p className="text-[11px] text-[#A7A29A] font-light max-w-xs lg:ml-auto">
-              Uma imersão nas origens do Regime Escocês Retificado.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* O GRANDE MAPA HISTÓRICO ILUMINADO — ATLAS DA FRANÇA RETIFICADA (Ajustado Grande e Esteticamente) */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full pt-2 pb-8">
-        <div className="relative bg-[#071118]/90 border border-[#C49A45]/60 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.9)] p-3 sm:p-4 md:p-5 backdrop-blur-sm">
-          {/* 4 Corner Brass Rivets with double rings */}
-          <div className="absolute -top-1.5 -left-1.5 w-3.5 h-3.5 rounded-full border border-[#C49A45] bg-[#071118] flex items-center justify-center z-20 shadow-md">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#C49A45]" />
-          </div>
-          <div className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 rounded-full border border-[#C49A45] bg-[#071118] flex items-center justify-center z-20 shadow-md">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#C49A45]" />
-          </div>
-          <div className="absolute -bottom-1.5 -left-1.5 w-3.5 h-3.5 rounded-full border border-[#C49A45] bg-[#071118] flex items-center justify-center z-20 shadow-md">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#C49A45]" />
-          </div>
-          <div className="absolute -bottom-1.5 -right-1.5 w-3.5 h-3.5 rounded-full border border-[#C49A45] bg-[#071118] flex items-center justify-center z-20 shadow-md">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#C49A45]" />
-          </div>
-
-          {/* Grand Map Top Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#A7A29A]/15">
-            <div className="flex items-center gap-2.5">
-              <span className="w-2 h-2 rounded-full bg-[#C49A45] animate-pulse" />
-              <span className="text-[11px] sm:text-xs uppercase tracking-[0.25em] text-[#C49A45] font-semibold">
-                Pergaminho Cartográfico Monumental · Projeção Histórica 1778–1782
-              </span>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <span className="text-[10px] tracking-wider text-[#A7A29A]/75 uppercase hidden lg:inline">
-                Interativo · Clique nas cidades ou toque no mapa para ampliar
-              </span>
-              <button
-                type="button"
-                onClick={() => setIsMapModalOpen(true)}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#C49A45]/15 hover:bg-[#C49A45] text-[#DFC07D] hover:text-[#050708] border border-[#C49A45]/50 hover:border-[#C49A45] text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-medium transition-all duration-300 cursor-pointer shadow-sm"
-                title="Abrir mapa em alta definição e tela cheia"
-              >
-                <Maximize2 className="w-3.5 h-3.5" />
-                <span>Ampliar Mapa em Alta Definição</span>
-              </button>
-            </div>
-          </div>
-
-          {/* The Grand Map Canvas with Interactive Hotspots */}
-          <div className="relative mt-3 w-full overflow-hidden border border-[#C49A45]/30 bg-[#050708] shadow-inner group/map">
-            <img
-              src="/assets/aistudio/WhatsApp_Image_2026-10-26_at_23.45.42_1141ab41.jpeg"
-              alt="Atlas da França Retificada - Nas Pegadas de Jean-Baptiste Willermoz (Paris, Chartres, Lyon)"
-              className="w-full h-auto object-contain cursor-pointer transition-transform duration-700 group-hover/map:scale-[1.008]"
-              onClick={() => setIsMapModalOpen(true)}
-              loading="eager"
-            />
-
-            {/* Subtle Vignette Overlay for Antique Depth */}
-            <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#071118]/40 via-transparent to-[#071118]/20 mix-blend-multiply" />
-
-            {/* Interactive City Hotspot: PARIS (56.4% X, 26.5% Y) */}
-            <div
-              style={{ left: '56.4%', top: '26.5%' }}
-              className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-20 group/marker"
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedCity('paris');
-                const el = document.getElementById('atlas-quadroes');
-                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-              }}
-            >
-              <div className="relative flex items-center justify-center">
-                <span className="absolute w-8 h-8 rounded-full bg-[#C49A45]/40 animate-ping pointer-events-none" />
-                <div
-                  className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 flex items-center justify-center transition-all duration-300 shadow-xl ${
-                    selectedCity === 'paris'
-                      ? 'border-[#DFC07D] bg-[#C49A45] text-[#050708] scale-125'
-                      : 'border-[#C49A45] bg-[#071118]/90 text-[#DFC07D] hover:scale-110 hover:border-[#DFC07D]'
-                  }`}
-                >
-                  <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                </div>
-
-                {/* Floating Gilded Tooltip */}
-                <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#071118]/95 border border-[#C49A45] px-3 py-1 text-center shadow-2xl pointer-events-none opacity-0 group-hover/marker:opacity-100 transition-opacity duration-200 z-30">
-                  <div className="text-[10px] uppercase tracking-widest text-[#C49A45] font-semibold">Etapa I · Paris</div>
-                  <div className="text-[9px] text-[#F0E9DC]/90 italic font-serif">O Iluminismo & O Debate das Luzes</div>
-                </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full pt-20 md:pt-28 pb-20">
+        
+        {/* 01. EDITORIAL HEADER — Art Publication Standard */}
+        <header className="pb-10 md:pb-14 border-b border-[#A7A29A]/15">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+            <div className="space-y-3 max-w-3xl">
+              <div className="flex items-center gap-3 text-xs tracking-[0.35em] text-[#C49A45] uppercase font-medium">
+                <Compass className="w-3.5 h-3.5 text-[#C49A45]" />
+                <span>Colégio Iniciático · Cartografia Histórica · 1778–1782</span>
               </div>
-            </div>
-
-            {/* Interactive City Hotspot: CHARTRES (48.0% X, 41.5% Y) */}
-            <div
-              style={{ left: '48.0%', top: '41.5%' }}
-              className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-20 group/marker"
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedCity('chartres');
-                const el = document.getElementById('atlas-quadroes');
-                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-              }}
-            >
-              <div className="relative flex items-center justify-center">
-                <span className="absolute w-8 h-8 rounded-full bg-[#C49A45]/40 animate-ping pointer-events-none" />
-                <div
-                  className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 flex items-center justify-center transition-all duration-300 shadow-xl ${
-                    selectedCity === 'chartres'
-                      ? 'border-[#DFC07D] bg-[#C49A45] text-[#050708] scale-125'
-                      : 'border-[#C49A45] bg-[#071118]/90 text-[#DFC07D] hover:scale-110 hover:border-[#DFC07D]'
-                  }`}
-                >
-                  <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                </div>
-
-                {/* Floating Gilded Tooltip */}
-                <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#071118]/95 border border-[#C49A45] px-3 py-1 text-center shadow-2xl pointer-events-none opacity-0 group-hover/marker:opacity-100 transition-opacity duration-200 z-30">
-                  <div className="text-[10px] uppercase tracking-widest text-[#C49A45] font-semibold">Etapa II · Chartres</div>
-                  <div className="text-[9px] text-[#F0E9DC]/90 italic font-serif">A Pedra, a Luz & o Sagrado</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Interactive City Hotspot: LYON (64.0% X, 69.5% Y) */}
-            <div
-              style={{ left: '64.0%', top: '69.5%' }}
-              className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-20 group/marker"
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedCity('lyon');
-                const el = document.getElementById('atlas-quadroes');
-                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-              }}
-            >
-              <div className="relative flex items-center justify-center">
-                <span className="absolute w-8 h-8 rounded-full bg-[#C49A45]/40 animate-ping pointer-events-none" />
-                <div
-                  className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 flex items-center justify-center transition-all duration-300 shadow-xl ${
-                    selectedCity === 'lyon'
-                      ? 'border-[#DFC07D] bg-[#C49A45] text-[#050708] scale-125'
-                      : 'border-[#C49A45] bg-[#071118]/90 text-[#DFC07D] hover:scale-110 hover:border-[#DFC07D]'
-                  }`}
-                >
-                  <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                </div>
-
-                {/* Floating Gilded Tooltip */}
-                <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#071118]/95 border border-[#C49A45] px-3 py-1 text-center shadow-2xl pointer-events-none opacity-0 group-hover/marker:opacity-100 transition-opacity duration-200 z-30">
-                  <div className="text-[10px] uppercase tracking-widest text-[#C49A45] font-semibold">Etapa III · Lyon</div>
-                  <div className="text-[9px] text-[#F0E9DC]/90 italic font-serif">O Berço da Reforma Retificada</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Right Floating Badge */}
-            <div className="absolute bottom-3 right-3 hidden sm:flex items-center gap-2 bg-[#050708]/85 border border-[#C49A45]/40 px-3 py-1.5 backdrop-blur-sm pointer-events-none">
-              <Eye className="w-3.5 h-3.5 text-[#C49A45]" />
-              <span className="text-[10px] uppercase tracking-widest text-[#DFC07D]">
-                Toque no mapa para ampliar em tela cheia
-              </span>
-            </div>
-          </div>
-
-          {/* Quick Route Selector Bar under Grand Map */}
-          <div className="mt-3 pt-3 border-t border-[#A7A29A]/15 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] uppercase tracking-[0.2em] text-[#C49A45] font-semibold">
-                Cidades da Rota:
-              </span>
-              <div className="flex items-center gap-1.5">
-                {(['paris', 'chartres', 'lyon'] as CityKey[]).map((k) => {
-                  const c = CITIES[k];
-                  const isActive = selectedCity === k;
-                  return (
-                    <button
-                      key={k}
-                      type="button"
-                      onClick={() => {
-                        setSelectedCity(k);
-                        const el = document.getElementById('atlas-quadroes');
-                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                      }}
-                      className={`px-3 py-1 text-[10px] sm:text-[11px] uppercase tracking-[0.18em] border transition-all duration-300 cursor-pointer ${
-                        isActive
-                          ? 'border-[#C49A45] bg-[#C49A45]/25 text-[#DFC07D] font-semibold shadow-sm'
-                          : 'border-[#A7A29A]/20 bg-[#050708]/50 text-[#A7A29A] hover:border-[#C49A45]/50 hover:text-[#F0E9DC]'
-                      }`}
-                    >
-                      <span className="text-[#C49A45] mr-1">{c.stageNum}.</span>
-                      <span>{c.name}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="text-[10px] text-[#A7A29A] tracking-wider uppercase font-light">
-              Expedição Cultural Exclusiva · 16 a 25 de Outubro de 2027
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* The Two Aligned Architectural Quadrões */}
-      <div id="atlas-quadroes" className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full py-4 my-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
-          
-          {/* Quadrão Esquerdo: Painel Editorial da Cidade & Fotografia */}
-          <div className="lg:col-span-5 relative flex flex-col justify-between bg-[#071118]/85 border border-[#C49A45]/50 p-5 sm:p-6 shadow-2xl backdrop-blur-sm lg:h-[530px]">
-            {/* 4 Corner Brass Rivets */}
-            <div className="absolute -top-1.5 -left-1.5 w-3 h-3 rounded-full border border-[#C49A45] bg-[#071118] flex items-center justify-center z-10">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#C49A45]" />
-            </div>
-            <div className="absolute -top-1.5 -right-1.5 w-3 h-3 rounded-full border border-[#C49A45] bg-[#071118] flex items-center justify-center z-10">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#C49A45]" />
-            </div>
-            <div className="absolute -bottom-1.5 -left-1.5 w-3 h-3 rounded-full border border-[#C49A45] bg-[#071118] flex items-center justify-center z-10">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#C49A45]" />
-            </div>
-            <div className="absolute -bottom-1.5 -right-1.5 w-3 h-3 rounded-full border border-[#C49A45] bg-[#071118] flex items-center justify-center z-10">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#C49A45]" />
-            </div>
-
-            {/* Top: City Selector Tabs */}
-            <div className="space-y-2">
-              <div className="text-[10px] uppercase tracking-[0.25em] text-[#C49A45] font-medium flex items-center justify-between">
-                <span>Selecione uma Cidade da Rota</span>
-                <span className="text-[#A7A29A]/60 font-serif">Etapa {city.stageNum}</span>
-              </div>
-              <div className="grid grid-cols-3 gap-2">
-                {(['paris', 'chartres', 'lyon'] as CityKey[]).map((k) => {
-                  const c = CITIES[k];
-                  const isActive = selectedCity === k;
-                  return (
-                    <button
-                      key={k}
-                      type="button"
-                      onClick={() => setSelectedCity(k)}
-                      className={`py-2 px-2 text-xs uppercase tracking-[0.18em] font-medium transition-all duration-300 text-center border cursor-pointer ${
-                        isActive
-                          ? 'border-[#C49A45] bg-[#C49A45]/20 text-[#DFC07D] shadow-md font-semibold'
-                          : 'border-[#A7A29A]/20 bg-[#050708]/60 text-[#A7A29A] hover:border-[#C49A45]/50 hover:text-[#F0E9DC]'
-                      }`}
-                    >
-                      <span className="font-serif text-[#C49A45] mr-1">{c.stageNum}.</span>
-                      <span>{c.name}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Middle: City Information */}
-            <div className="py-2.5 border-y border-[#A7A29A]/15 space-y-1.5">
-              <div className="flex items-baseline justify-between gap-4">
-                <span className="font-serif text-2xl sm:text-3xl text-[#F0E9DC] font-normal">
-                  {city.name}
-                </span>
-                <span className="font-mono text-[10px] tracking-wider text-[#C49A45]">
-                  {city.coords}
-                </span>
-              </div>
-              <div className="text-xs font-serif text-[#DFC07D] italic">
-                {city.subtitle}
-              </div>
-              <p className="text-xs text-[#F0E9DC]/85 font-light leading-relaxed line-clamp-2">
-                {city.description}
+              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#F0E9DC] font-light tracking-tight leading-[1.05]">
+                Atlas da <span className="font-normal text-[#C49A45] italic">França Retificada</span>
+              </h1>
+              <p className="font-serif text-lg sm:text-xl md:text-2xl text-[#DFC07D]/90 font-light italic">
+                Nas pegadas de Jean-Baptiste Willermoz — Paris · Chartres · Lyon
+              </p>
+              <p className="text-sm sm:text-base text-[#A7A29A] font-light leading-relaxed max-w-2xl pt-1">
+                Uma imersão histórica, filosófica e documental nas origens do Regime Escocês Retificado.
+                Explore a rota geográfica setecentista que moldou a reforma dos ritos cavalheirescos e cristãos na Europa.
               </p>
             </div>
 
-            {/* Bottom: Authentic Photography & Fullscreen Action */}
-            <div className="space-y-2.5">
+            <div className="lg:text-right shrink-0 space-y-1.5 pt-4 lg:pt-0 border-t lg:border-t-0 border-[#A7A29A]/15">
+              <div className="text-xs uppercase tracking-[0.25em] text-[#C49A45] font-medium">
+                FRANÇA · 16–25 OUTUBRO 2027
+              </div>
+              <div className="text-[11px] text-[#A7A29A] uppercase tracking-wider font-light">
+                10 Dias de Imersão e Pesquisa Documental
+              </div>
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => setIsMapModalOpen(true)}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-[#C49A45]/15 hover:bg-[#C49A45] text-[#DFC07D] hover:text-[#050708] border border-[#C49A45]/50 hover:border-[#C49A45] text-[11px] uppercase tracking-[0.2em] font-medium transition-all duration-300 cursor-pointer shadow-sm"
+                  title="Abrir mapa em alta definição e tela cheia"
+                >
+                  <Maximize2 className="w-3.5 h-3.5" />
+                  <span>Ampliar Mapa em Alta Resolução</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* 02. O MAPA HISTÓRICO MONUMENTAL (O Protagonista Visual do Atlas) */}
+        <section aria-label="Mapa do Atlas Histórico" className="pt-10 md:pt-14 pb-14">
+          <div className="relative group/mapFrame">
+            {/* Museum Matting & Frame Presentation */}
+            <div className="relative bg-[#080d12] border border-[#C49A45]/40 p-2 sm:p-3 md:p-4 shadow-[0_30px_90px_rgba(0,0,0,0.9)] transition-all duration-500 hover:border-[#C49A45]/70">
+              
+              {/* Top Subtitle Bar inside Map Matting */}
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 px-2 pb-3 mb-2 border-b border-[#A7A29A]/15 text-[11px]">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2 h-2 rounded-full bg-[#C49A45] animate-pulse" />
+                  <span className="uppercase tracking-[0.22em] text-[#DFC07D] font-medium">
+                    Pergaminho Cartográfico Monumental · Paris · Chartres · Lyon
+                  </span>
+                </div>
+                <div className="text-[10px] uppercase tracking-[0.2em] text-[#A7A29A] flex items-center gap-2">
+                  <Sparkles className="w-3 h-3 text-[#C49A45]" />
+                  <span>Interativo: Clique nos marcadores das cidades ou na imagem para ampliar</span>
+                </div>
+              </div>
+
+              {/* Grand Map Canvas */}
               <div
-                onClick={() => setIsModalOpen(true)}
-                className="group/img relative h-32 sm:h-36 w-full overflow-hidden border border-[#C49A45]/30 cursor-pointer bg-[#050708]"
-                role="button"
-                tabIndex={0}
-                aria-label={`Abrir fotografia de ${city.name}`}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    setIsModalOpen(true);
-                  }
-                }}
+                className="relative w-full overflow-hidden bg-[#040608] cursor-pointer"
+                onClick={() => setIsMapModalOpen(true)}
               >
                 <img
-                  src={city.image}
-                  alt={`Fotografia de ${city.name}`}
-                  className="w-full h-full object-cover object-center filter brightness-[0.82] contrast-[1.05] group-hover/img:scale-105 group-hover/img:brightness-100 transition-all duration-700"
+                  src="/assets/aistudio/WhatsApp_Image_2026-10-26_at_23.45.42_1141ab41.jpeg"
+                  alt="Atlas da França Retificada - Nas Pegadas de Jean-Baptiste Willermoz: Rota Paris, Chartres e Lyon"
+                  className="w-full h-auto object-contain filter contrast-[1.02] brightness-[0.98] transition-transform duration-1000 ease-out group-hover/mapFrame:scale-[1.01]"
                   loading="eager"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#050708]/90 via-transparent to-transparent pointer-events-none" />
-                <div className="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[10px] tracking-[0.2em] uppercase text-[#F0E9DC] pointer-events-none">
-                  <span className="flex items-center gap-1.5 text-[#DFC07D] font-medium">
-                    <Eye className="w-3.5 h-3.5 text-[#C49A45]" />
-                    <span>Fotografia Histórica</span>
-                  </span>
-                  <span className="text-[#A7A29A] group-hover/img:text-[#F0E9DC] flex items-center gap-1 transition-colors">
-                    <span>Ampliar</span>
-                    <Maximize2 className="w-3 h-3" />
+
+                {/* Subtle Cinematic Vignette Overlay */}
+                <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#050708]/50 via-transparent to-[#050708]/20 mix-blend-multiply" />
+
+                {/* ============================================================ */}
+                {/* INTERACTIVE CITY HOTSPOT: PARIS (56.4% X, 26.5% Y)            */}
+                {/* ============================================================ */}
+                <div
+                  style={{ left: `${CITIES.paris.xPercent}%`, top: `${CITIES.paris.yPercent}%` }}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-30 group/parisMarker"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleOpenCityModal('paris');
+                  }}
+                  title="Ver detalhes de Paris"
+                >
+                  <div className="relative flex items-center justify-center">
+                    <span className="absolute w-8 h-8 rounded-full bg-[#C49A45]/40 animate-ping pointer-events-none" />
+                    <div
+                      className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 flex items-center justify-center transition-all duration-300 shadow-2xl ${
+                        selectedCity === 'paris'
+                          ? 'border-[#DFC07D] bg-[#C49A45] text-[#050708] scale-125'
+                          : 'border-[#C49A45] bg-[#071118]/95 text-[#DFC07D] hover:scale-115 hover:border-[#DFC07D]'
+                      }`}
+                    >
+                      <MapPin className="w-4 h-4" />
+                    </div>
+
+                    {/* Floating Editorial Badge Tooltip */}
+                    <div className="absolute bottom-full mb-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#071118]/95 border border-[#C49A45] px-3.5 py-1.5 text-center shadow-2xl pointer-events-none opacity-0 group-hover/parisMarker:opacity-100 transition-opacity duration-200 z-40">
+                      <div className="text-[10px] uppercase tracking-[0.2em] text-[#C49A45] font-semibold">
+                        Etapa I · Paris
+                      </div>
+                      <div className="text-[10px] text-[#F0E9DC]/90 italic font-serif">
+                        O Iluminismo & O Debate das Luzes
+                      </div>
+                      <div className="text-[9px] text-[#A7A29A] mt-0.5 font-sans uppercase tracking-wider">
+                        Toque para abrir fotografia e detalhes
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ============================================================ */}
+                {/* INTERACTIVE CITY HOTSPOT: CHARTRES (48.0% X, 41.5% Y)         */}
+                {/* ============================================================ */}
+                <div
+                  style={{ left: `${CITIES.chartres.xPercent}%`, top: `${CITIES.chartres.yPercent}%` }}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-30 group/chartresMarker"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleOpenCityModal('chartres');
+                  }}
+                  title="Ver detalhes de Chartres"
+                >
+                  <div className="relative flex items-center justify-center">
+                    <span className="absolute w-8 h-8 rounded-full bg-[#C49A45]/40 animate-ping pointer-events-none" />
+                    <div
+                      className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 flex items-center justify-center transition-all duration-300 shadow-2xl ${
+                        selectedCity === 'chartres'
+                          ? 'border-[#DFC07D] bg-[#C49A45] text-[#050708] scale-125'
+                          : 'border-[#C49A45] bg-[#071118]/95 text-[#DFC07D] hover:scale-115 hover:border-[#DFC07D]'
+                      }`}
+                    >
+                      <MapPin className="w-4 h-4" />
+                    </div>
+
+                    {/* Floating Editorial Badge Tooltip */}
+                    <div className="absolute bottom-full mb-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#071118]/95 border border-[#C49A45] px-3.5 py-1.5 text-center shadow-2xl pointer-events-none opacity-0 group-hover/chartresMarker:opacity-100 transition-opacity duration-200 z-40">
+                      <div className="text-[10px] uppercase tracking-[0.2em] text-[#C49A45] font-semibold">
+                        Etapa II · Chartres
+                      </div>
+                      <div className="text-[10px] text-[#F0E9DC]/90 italic font-serif">
+                        A Pedra, a Luz & o Sagrado
+                      </div>
+                      <div className="text-[9px] text-[#A7A29A] mt-0.5 font-sans uppercase tracking-wider">
+                        Toque para abrir fotografia e detalhes
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ============================================================ */}
+                {/* INTERACTIVE CITY HOTSPOT: LYON (64.0% X, 69.5% Y)             */}
+                {/* ============================================================ */}
+                <div
+                  style={{ left: `${CITIES.lyon.xPercent}%`, top: `${CITIES.lyon.yPercent}%` }}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-30 group/lyonMarker"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleOpenCityModal('lyon');
+                  }}
+                  title="Ver detalhes de Lyon"
+                >
+                  <div className="relative flex items-center justify-center">
+                    <span className="absolute w-8 h-8 rounded-full bg-[#C49A45]/40 animate-ping pointer-events-none" />
+                    <div
+                      className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 flex items-center justify-center transition-all duration-300 shadow-2xl ${
+                        selectedCity === 'lyon'
+                          ? 'border-[#DFC07D] bg-[#C49A45] text-[#050708] scale-125'
+                          : 'border-[#C49A45] bg-[#071118]/95 text-[#DFC07D] hover:scale-115 hover:border-[#DFC07D]'
+                      }`}
+                    >
+                      <MapPin className="w-4 h-4" />
+                    </div>
+
+                    {/* Floating Editorial Badge Tooltip */}
+                    <div className="absolute bottom-full mb-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#071118]/95 border border-[#C49A45] px-3.5 py-1.5 text-center shadow-2xl pointer-events-none opacity-0 group-hover/lyonMarker:opacity-100 transition-opacity duration-200 z-40">
+                      <div className="text-[10px] uppercase tracking-[0.2em] text-[#C49A45] font-semibold">
+                        Etapa III · Lyon
+                      </div>
+                      <div className="text-[10px] text-[#F0E9DC]/90 italic font-serif">
+                        O Berço da Reforma Retificada
+                      </div>
+                      <div className="text-[9px] text-[#A7A29A] mt-0.5 font-sans uppercase tracking-wider">
+                        Toque para abrir fotografia e detalhes
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating Bottom Badge */}
+                <div className="absolute bottom-3 right-3 hidden sm:flex items-center gap-2 bg-[#050708]/85 border border-[#C49A45]/40 px-3.5 py-1.5 backdrop-blur-sm pointer-events-none">
+                  <Eye className="w-3.5 h-3.5 text-[#C49A45]" />
+                  <span className="text-[10px] uppercase tracking-widest text-[#DFC07D]">
+                    Toque no mapa para ampliar em tela cheia com zoom
                   </span>
                 </div>
               </div>
 
-              <button
-                type="button"
-                onClick={() => setIsModalOpen(true)}
-                className="w-full py-2.5 bg-[#C49A45]/15 hover:bg-[#C49A45] text-[#DFC07D] hover:text-[#050708] border border-[#C49A45]/50 hover:border-[#C49A45] text-[11px] uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer"
-              >
-                <Maximize2 className="w-3.5 h-3.5" />
-                <span>Abrir Imagem de {city.name}</span>
-              </button>
+              {/* Bottom Quick Bar */}
+              <div className="mt-3 pt-3 border-t border-[#A7A29A]/15 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-[#C49A45] font-semibold">
+                    Etapas do Itinerário:
+                  </span>
+                  <div className="flex items-center gap-1.5">
+                    {CITY_KEYS.map((k) => {
+                      const c = CITIES[k];
+                      const isActive = selectedCity === k;
+                      return (
+                        <button
+                          key={k}
+                          type="button"
+                          onClick={() => {
+                            setSelectedCity(k);
+                            const el = document.getElementById(`cidade-card-${k}`);
+                            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                          }}
+                          className={`px-3 py-1 text-[10px] sm:text-[11px] uppercase tracking-[0.18em] border transition-all duration-300 cursor-pointer ${
+                            isActive
+                              ? 'border-[#C49A45] bg-[#C49A45]/25 text-[#DFC07D] font-semibold'
+                              : 'border-[#A7A29A]/20 bg-[#050708]/50 text-[#A7A29A] hover:border-[#C49A45]/50 hover:text-[#F0E9DC]'
+                          }`}
+                        >
+                          <span className="text-[#C49A45] mr-1">{c.stageNum}.</span>
+                          <span>{c.name}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="text-[10px] text-[#A7A29A] tracking-wider uppercase font-light">
+                  Paris → Chartres → Lyon · 16 a 25 de Outubro de 2027
+                </div>
+              </div>
             </div>
           </div>
+        </section>
 
-          {/* Quadrão Direito: Mapa Histórico da França (Perfeitamente Alinhado) */}
-          <div className="lg:col-span-7 relative flex items-center justify-center bg-[#071118]/85 border border-[#C49A45]/50 p-2 sm:p-3 shadow-2xl backdrop-blur-sm lg:h-[530px] overflow-hidden">
-            {/* 4 Corner Brass Rivets */}
-            <div className="absolute -top-1.5 -left-1.5 w-3 h-3 rounded-full border border-[#C49A45] bg-[#071118] flex items-center justify-center z-10">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#C49A45]" />
+        {/* 03. TRIPTYQUE EDITORIAL: AS TRÊS CIDADES DA EXPEDIÇÃO (Sem Caixas Rígidas de PowerPoint) */}
+        <section aria-label="Dossiê das Três Cidades da Expedição" className="pt-4 pb-12">
+          <div className="mb-8">
+            <div className="text-xs uppercase tracking-[0.3em] text-[#C49A45] font-medium mb-2">
+              Dossiê Documental da Expedição
             </div>
-            <div className="absolute -top-1.5 -right-1.5 w-3 h-3 rounded-full border border-[#C49A45] bg-[#071118] flex items-center justify-center z-10">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#C49A45]" />
-            </div>
-            <div className="absolute -bottom-1.5 -left-1.5 w-3 h-3 rounded-full border border-[#C49A45] bg-[#071118] flex items-center justify-center z-10">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#C49A45]" />
-            </div>
-            <div className="absolute -bottom-1.5 -right-1.5 w-3 h-3 rounded-full border border-[#C49A45] bg-[#071118] flex items-center justify-center z-10">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#C49A45]" />
-            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[#F0E9DC] font-light tracking-tight">
+              O Tríptico da <span className="text-[#C49A45] italic">Tradição Francesa</span>
+            </h2>
+            <p className="text-sm sm:text-base text-[#A7A29A] font-light max-w-2xl mt-1">
+              Três cidades fundamentais, cada qual representando um vértice indispensável para compreender a arquitetura espiritual, intelectual e ritualística do Regime Escocês Retificado.
+            </p>
+          </div>
 
-            <div className="w-full h-full relative flex items-center justify-center">
-              <svg
-                viewBox="0 0 1000 800"
-                className="w-full h-full drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
-                aria-label="Mapa Histórico da França"
-              >
-                <defs>
-                  {/* Antique parchment linear and radial filters */}
-                  <linearGradient id="mapBorderGold" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#C49A45" stopOpacity="0.8" />
-                    <stop offset="50%" stopColor="#8A6828" stopOpacity="0.4" />
-                    <stop offset="100%" stopColor="#C49A45" stopOpacity="0.8" />
-                  </linearGradient>
+          {/* 3-Column Editorial Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 items-stretch">
+            {CITY_KEYS.map((k) => {
+              const c = CITIES[k];
+              const isSelected = selectedCity === k;
 
-                  <radialGradient id="landGradient" cx="50%" cy="45%" r="60%">
-                    <stop offset="0%" stopColor="#172b38" stopOpacity="0.95" />
-                    <stop offset="65%" stopColor="#0e1d26" stopOpacity="0.9" />
-                    <stop offset="100%" stopColor="#08131a" stopOpacity="0.8" />
-                  </radialGradient>
-
-                  <filter id="glowGold" x="-20%" y="-20%" width="140%" height="140%">
-                    <feGaussianBlur stdDeviation="3" result="blur" />
-                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                  </filter>
-                </defs>
-
-                {/* Cartographic Coordinate Outer Frame */}
-                <rect
-                  x="20"
-                  y="20"
-                  width="960"
-                  height="760"
-                  fill="none"
-                  stroke="url(#mapBorderGold)"
-                  strokeWidth="1.5"
-                  opacity="0.6"
-                />
-                <rect
-                  x="28"
-                  y="28"
-                  width="944"
-                  height="744"
-                  fill="none"
-                  stroke="#A7A29A"
-                  strokeWidth="0.5"
-                  opacity="0.3"
-                  strokeDasharray="4 4"
-                />
-
-                {/* Corner Accents */}
-                {[[20, 20], [980, 20], [20, 780], [980, 780]].map(([cx, cy], i) => (
-                  <g key={i}>
-                    <circle cx={cx} cy={cy} r="4" fill="#C49A45" opacity="0.8" />
-                    <circle cx={cx} cy={cy} r="8" fill="none" stroke="#C49A45" strokeWidth="0.75" opacity="0.5" />
-                  </g>
-                ))}
-
-                {/* Historical Rhumb Lines (Linhas de Rumo da Rosa dos Ventos) */}
-                <g stroke="#C49A45" strokeWidth="0.5" opacity="0.12">
-                  <line x1="230" y1="460" x2="980" y2="100" />
-                  <line x1="230" y1="460" x2="980" y2="460" />
-                  <line x1="230" y1="460" x2="980" y2="700" />
-                  <line x1="230" y1="460" x2="535" y2="220" />
-                  <line x1="230" y1="460" x2="668" y2="435" />
-                  <line x1="230" y1="460" x2="490" y2="250" />
-                  <line x1="230" y1="460" x2="230" y2="20" />
-                  <line x1="230" y1="460" x2="230" y2="780" />
-                  <line x1="230" y1="460" x2="20" y2="460" />
-                  <line x1="230" y1="460" x2="50" y2="150" />
-                  <line x1="230" y1="460" x2="50" y2="720" />
-                  {/* Secondary rhumb from Paris */}
-                  <line x1="535" y1="220" x2="20" y2="220" strokeDasharray="3 3" />
-                  <line x1="535" y1="220" x2="980" y2="220" strokeDasharray="3 3" />
-                  <line x1="535" y1="220" x2="535" y2="20" strokeDasharray="3 3" />
-                  <line x1="535" y1="220" x2="535" y2="780" strokeDasharray="3 3" />
-                </g>
-
-                {/* France Geographic Territorial Contour (Accurate Hexagon Shape) */}
-                <path
-                  d="M 520,95 
-                     C 550,105 600,108 625,120 
-                     C 650,135 680,140 705,160 
-                     C 730,175 765,195 780,225 
-                     C 795,250 820,290 815,335 
-                     C 810,365 790,390 785,420 
-                     C 780,450 790,480 810,515 
-                     C 815,530 805,550 785,570 
-                     C 760,590 730,605 700,615 
-                     C 670,625 635,630 600,650 
-                     C 575,665 540,685 505,690 
-                     C 470,695 440,680 405,670 
-                     C 375,660 345,640 325,615 
-                     C 305,585 300,555 310,520 
-                     C 320,490 325,460 315,430 
-                     C 305,400 280,380 260,355 
-                     C 230,325 190,310 165,300 
-                     C 145,290 145,270 170,265 
-                     C 200,260 230,270 265,275 
-                     C 300,280 320,250 345,230 
-                     C 370,210 395,220 415,200 
-                     C 435,175 450,140 480,115 
-                     Z"
-                  fill="url(#landGradient)"
-                  stroke="#C49A45"
-                  strokeWidth="1.2"
-                  opacity="0.95"
-                />
-
-                {/* Inner Territorial Topography Shading */}
-                <path
-                  d="M 520,95 C 550,105 600,108 625,120 C 650,135 680,140 705,160 C 730,175 765,195 780,225 C 795,250 820,290 815,335 C 810,365 790,390 785,420 C 780,450 790,480 810,515 C 815,530 805,550 785,570 C 760,590 730,605 700,615 C 670,625 635,630 600,650 C 575,665 540,685 505,690 C 470,695 440,680 405,670 C 375,660 345,640 325,615 C 305,585 300,555 310,520 C 320,490 325,460 315,430 C 305,400 280,380 260,355 C 230,325 190,310 165,300 C 145,290 145,270 170,265 C 200,260 230,270 265,275 C 300,280 320,250 345,230 C 370,210 395,220 415,200 C 435,175 450,140 480,115 Z"
-                  fill="none"
-                  stroke="#8A6828"
-                  strokeWidth="0.5"
-                  strokeDasharray="2 4"
-                  opacity="0.4"
-                />
-
-                {/* Major Rivers of France (Sena, Saône, Rhône, Loire) */}
-                {/* Seine River (through Paris) */}
-                <path
-                  d="M 640,320 C 600,290 570,260 535,220 C 500,185 450,180 420,165"
-                  fill="none"
-                  stroke="#4a7082"
-                  strokeWidth="1.5"
-                  opacity="0.65"
-                  strokeLinecap="round"
-                />
-                <text x="440" y="160" fill="#7fa0af" fontSize="10" fontStyle="italic" fontFamily="serif" opacity="0.7">
-                  La Seine
-                </text>
-
-                {/* Saône & Rhône River (through Lyon) */}
-                <path
-                  d="M 680,300 C 670,350 672,390 668,435 C 665,490 655,540 645,615"
-                  fill="none"
-                  stroke="#4a7082"
-                  strokeWidth="1.8"
-                  opacity="0.7"
-                  strokeLinecap="round"
-                />
-                <text x="680" y="375" fill="#7fa0af" fontSize="10" fontStyle="italic" fontFamily="serif" opacity="0.7">
-                  La Saône
-                </text>
-                <text x="660" y="550" fill="#7fa0af" fontSize="10" fontStyle="italic" fontFamily="serif" opacity="0.7">
-                  Le Rhône
-                </text>
-
-                {/* Loire River */}
-                <path
-                  d="M 610,480 C 580,410 560,340 520,320 C 470,310 380,320 280,315"
-                  fill="none"
-                  stroke="#4a7082"
-                  strokeWidth="1.2"
-                  opacity="0.4"
-                  strokeLinecap="round"
-                />
-                <text x="360" y="310" fill="#7fa0af" fontSize="9" fontStyle="italic" fontFamily="serif" opacity="0.5">
-                  La Loire
-                </text>
-
-                {/* Mountain Ridge Hatching (Alps & Pyrenees hints in 18th c. copperplate style) */}
-                <g fill="none" stroke="#C49A45" strokeWidth="0.6" opacity="0.35">
-                  {/* Alps / Jura */}
-                  <path d="M 720,410 L 730,395 L 740,410 L 750,398 L 760,415" />
-                  <path d="M 740,460 L 755,440 L 770,465 L 785,445 L 800,470" />
-                  <path d="M 710,510 L 725,488 L 740,512 L 755,490 L 770,515" />
-                  {/* Pyrenees */}
-                  <path d="M 360,655 L 375,640 L 390,658 L 405,642 L 420,660" />
-                  <path d="M 440,670 L 455,652 L 470,672 L 485,655 L 500,675" />
-                </g>
-
-                {/* Historical Expedition Route Line (Paris -> Chartres -> Lyon) */}
-                <g>
-                  {/* Outer Route Glow */}
-                  <path
-                    d="M 535,220 L 490,250 L 668,435"
-                    fill="none"
-                    stroke="#C49A45"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    opacity="0.4"
-                    filter="url(#glowGold)"
-                  />
-                  {/* Dashed Cartographic March Route */}
-                  <path
-                    d="M 535,220 L 490,250 L 668,435"
-                    fill="none"
-                    stroke="#F0E9DC"
-                    strokeWidth="1.6"
-                    strokeDasharray="6 6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    opacity="0.85"
-                  />
-                </g>
-
-                {/* Monumental Compass Rose (Rosa dos Ventos in Bay of Biscay) */}
-                <g transform="translate(230, 460)">
-                  {/* Outer Rings */}
-                  <circle cx="0" cy="0" r="70" fill="none" stroke="#C49A45" strokeWidth="0.8" opacity="0.5" />
-                  <circle cx="0" cy="0" r="62" fill="none" stroke="#A7A29A" strokeWidth="0.4" strokeDasharray="2 3" opacity="0.4" />
-                  <circle cx="0" cy="0" r="54" fill="none" stroke="#C49A45" strokeWidth="1.2" opacity="0.6" />
-
-                  {/* Degree ticks */}
-                  {Array.from({ length: 16 }).map((_, idx) => {
-                    const angle = (idx * 360) / 16;
-                    return (
-                      <line
-                        key={idx}
-                        x1="0"
-                        y1="-62"
-                        x2="0"
-                        y2="-70"
-                        stroke="#C49A45"
-                        strokeWidth={idx % 4 === 0 ? '1.2' : '0.6'}
-                        opacity="0.6"
-                        transform={`rotate(${angle})`}
-                      />
-                    );
-                  })}
-
-                  {/* 8 Main Points */}
-                  {/* North (with Fleur-de-lis) */}
-                  <polygon points="0,-54 8,-12 0,0 -8,-12" fill="#C49A45" opacity="0.85" />
-                  <polygon points="0,-54 -8,-12 0,0" fill="#8A6828" opacity="0.9" />
-                  {/* South */}
-                  <polygon points="0,54 8,12 0,0 -8,12" fill="#8A6828" opacity="0.75" />
-                  <polygon points="0,54 -8,12 0,0" fill="#C49A45" opacity="0.7" />
-                  {/* East */}
-                  <polygon points="54,0 12,8 0,0 12,-8" fill="#C49A45" opacity="0.75" />
-                  <polygon points="54,0 12,-8 0,0" fill="#8A6828" opacity="0.7" />
-                  {/* West */}
-                  <polygon points="-54,0 -12,8 0,0 -12,-8" fill="#8A6828" opacity="0.75" />
-                  <polygon points="-54,0 -12,-8 0,0" fill="#C49A45" opacity="0.7" />
-
-                  {/* 4 Diagonal Points */}
-                  {[45, 135, 225, 315].map((angle) => (
-                    <polygon
-                      key={angle}
-                      points="0,-42 5,-8 0,0 -5,-8"
-                      fill="#C49A45"
-                      opacity="0.5"
-                      transform={`rotate(${angle})`}
-                    />
-                  ))}
-
-                  {/* Center Brass Boss */}
-                  <circle cx="0" cy="0" r="5" fill="#DFC07D" stroke="#050708" strokeWidth="1" />
-
-                  {/* Cardinal Points Calligraphy */}
-                  <text x="0" y="-76" textAnchor="middle" fill="#DFC07D" fontSize="13" fontFamily="serif" fontWeight="bold">
-                    N
-                  </text>
-                  <text x="0" y="88" textAnchor="middle" fill="#A7A29A" fontSize="10" fontFamily="serif">
-                    S
-                  </text>
-                  <text x="86" y="4" textAnchor="start" fill="#A7A29A" fontSize="10" fontFamily="serif">
-                    E
-                  </text>
-                  <text x="-86" y="4" textAnchor="end" fill="#A7A29A" fontSize="10" fontFamily="serif">
-                    O
-                  </text>
-                </g>
-
-                {/* Ocean / Sea Historical Calligraphy */}
-                <text
-                  x="200"
-                  y="620"
-                  fill="#7d98a6"
-                  fontSize="13"
-                  fontStyle="italic"
-                  fontFamily="serif"
-                  letterSpacing="4"
-                  opacity="0.45"
+              return (
+                <article
+                  key={k}
+                  id={`cidade-card-${k}`}
+                  onClick={() => setSelectedCity(k)}
+                  className={`relative flex flex-col justify-between border transition-all duration-500 bg-[#071118]/80 p-6 sm:p-7 backdrop-blur-sm group cursor-pointer ${
+                    isSelected
+                      ? 'border-[#C49A45] shadow-[0_15px_40px_rgba(196,154,69,0.15)] ring-1 ring-[#C49A45]/30'
+                      : 'border-[#A7A29A]/20 hover:border-[#C49A45]/60 hover:bg-[#071118]'
+                  }`}
                 >
-                  OCÉAN ATLANTIQUE
-                </text>
-                <text
-                  x="300"
-                  y="120"
-                  fill="#7d98a6"
-                  fontSize="11"
-                  fontStyle="italic"
-                  fontFamily="serif"
-                  letterSpacing="3"
-                  opacity="0.4"
-                >
-                  LA MANCHE
-                </text>
-                <text
-                  x="690"
-                  y="710"
-                  fill="#7d98a6"
-                  fontSize="11"
-                  fontStyle="italic"
-                  fontFamily="serif"
-                  letterSpacing="3"
-                  opacity="0.4"
-                >
-                  MER MÉDITERRANÉE
-                </text>
+                  <div className="space-y-4">
+                    {/* Stage Header */}
+                    <div className="flex items-center justify-between pb-3 border-b border-[#A7A29A]/15 text-xs">
+                      <div className="flex items-center gap-2">
+                        <span className="font-serif text-[#C49A45] text-sm font-semibold">
+                          ETAPA {c.stageNum}
+                        </span>
+                        <span className="text-[#A7A29A]/40">·</span>
+                        <span className="font-mono text-[10px] tracking-wider text-[#A7A29A]">
+                          {c.coords}
+                        </span>
+                      </div>
+                      <span
+                        className={`text-[9px] uppercase tracking-widest px-2 py-0.5 border ${
+                          isSelected
+                            ? 'border-[#C49A45] text-[#DFC07D] bg-[#C49A45]/15'
+                            : 'border-transparent text-[#A7A29A]/60'
+                        }`}
+                      >
+                        {isSelected ? 'Em Destaque' : 'Selecionar'}
+                      </span>
+                    </div>
 
-                {/* Historical Scale in French Leagues (Échelle de Lieues) */}
-                <g transform="translate(680, 80)" opacity="0.65">
-                  <text x="0" y="0" fill="#A7A29A" fontSize="9" letterSpacing="2" fontFamily="serif">
-                    ÉCHELLE DE 50 LIEUES DE FRANCE
-                  </text>
-                  <line x1="0" y1="8" x2="160" y2="8" stroke="#C49A45" strokeWidth="1" />
-                  <line x1="0" y1="4" x2="0" y2="12" stroke="#C49A45" strokeWidth="1" />
-                  <line x1="80" y1="5" x2="80" y2="11" stroke="#C49A45" strokeWidth="0.8" />
-                  <line x1="160" y1="4" x2="160" y2="12" stroke="#C49A45" strokeWidth="1" />
-                  <text x="0" y="22" fill="#A7A29A" fontSize="8" fontFamily="serif">0</text>
-                  <text x="75" y="22" fill="#A7A29A" fontSize="8" fontFamily="serif">25</text>
-                  <text x="150" y="22" fill="#A7A29A" fontSize="8" fontFamily="serif">50</text>
-                </g>
+                    {/* City Title & Subtitle */}
+                    <div>
+                      <h3 className="font-serif text-3xl sm:text-4xl text-[#F0E9DC] font-normal tracking-tight group-hover:text-[#DFC07D] transition-colors">
+                        {c.name}
+                      </h3>
+                      <p className="font-serif text-sm sm:text-base text-[#DFC07D] italic mt-1">
+                        {c.subtitle}
+                      </p>
+                    </div>
 
-                {/* City Markers (Interactive & Geographically Positioned) */}
-                {(['paris', 'chartres', 'lyon'] as CityKey[]).map((k) => {
-                  const c = CITIES[k];
-                  const isSelected = selectedCity === k;
+                    {/* Descriptive Narrative */}
+                    <p className="text-xs sm:text-sm text-[#F0E9DC]/80 font-light leading-relaxed">
+                      {c.description}
+                    </p>
 
-                  return (
-                    <g
-                      key={k}
-                      className="cursor-pointer transition-all duration-300 group/marker"
-                      onClick={() => handleMarkerClick(k)}
+                    {/* Photographic Aperture Window */}
+                    <div
+                      className="relative h-44 sm:h-48 w-full overflow-hidden border border-[#C49A45]/30 bg-[#050708] mt-4 shadow-inner"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleOpenCityModal(k);
+                      }}
                       role="button"
                       tabIndex={0}
-                      aria-label={`Cidade: ${c.name} - Clique para abrir imagem histórica`}
+                      aria-label={`Abrir fotografia de ${c.name} em alta resolução`}
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
-                          handleMarkerClick(k);
+                          handleOpenCityModal(k);
                         }
                       }}
                     >
-                      {/* Pulsing ring if selected */}
-                      {isSelected && (
-                        <circle
-                          cx={c.x}
-                          cy={c.y}
-                          r="18"
-                          fill="none"
-                          stroke="#C49A45"
-                          strokeWidth="1"
-                          opacity="0.6"
-                          className="animate-ping"
-                        />
-                      )}
-
-                      {/* Outer marker halo */}
-                      <circle
-                        cx={c.x}
-                        cy={c.y}
-                        r={isSelected ? 10 : 7}
-                        fill={isSelected ? '#C49A45' : '#050708'}
-                        stroke="#DFC07D"
-                        strokeWidth={isSelected ? '2' : '1.2'}
-                        className="transition-all duration-300"
+                      <img
+                        src={c.image}
+                        alt={c.imageCaption}
+                        className="w-full h-full object-cover object-center filter brightness-[0.80] contrast-[1.08] group-hover:scale-105 group-hover:brightness-95 transition-all duration-700"
+                        loading="lazy"
                       />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#050708]/90 via-transparent to-transparent pointer-events-none" />
+                      
+                      <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[10px] tracking-[0.2em] uppercase text-[#F0E9DC] pointer-events-none">
+                        <span className="flex items-center gap-1.5 text-[#DFC07D] font-medium">
+                          <Eye className="w-3.5 h-3.5 text-[#C49A45]" />
+                          <span>Fotografia Histórica</span>
+                        </span>
+                        <span className="text-[#A7A29A] group-hover:text-[#F0E9DC] flex items-center gap-1 transition-colors">
+                          <span>Ampliar</span>
+                          <Maximize2 className="w-3 h-3" />
+                        </span>
+                      </div>
+                    </div>
 
-                      {/* Inner point */}
-                      <circle
-                        cx={c.x}
-                        cy={c.y}
-                        r={isSelected ? 4 : 2.5}
-                        fill={isSelected ? '#050708' : '#DFC07D'}
-                      />
+                    {/* Sites of investigation */}
+                    <div className="pt-2">
+                      <div className="text-[10px] uppercase tracking-[0.2em] text-[#C49A45] font-medium mb-1.5">
+                        Pontos de Investigação
+                      </div>
+                      <ul className="space-y-1">
+                        {c.historicalSites.map((site, idx) => (
+                          <li
+                            key={idx}
+                            className="text-xs text-[#A7A29A] font-light flex items-center gap-2"
+                          >
+                            <span className="w-1 h-1 rounded-full bg-[#C49A45]" />
+                            <span>{site}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
 
-                      {/* City Name Calligraphy */}
-                      <text
-                        x={k === 'chartres' ? c.x - 14 : c.x + 14}
-                        y={k === 'paris' ? c.y - 8 : k === 'chartres' ? c.y + 16 : c.y + 5}
-                        textAnchor={k === 'chartres' ? 'end' : 'start'}
-                        fill={isSelected ? '#DFC07D' : '#F0E9DC'}
-                        fontSize={isSelected ? '16' : '13'}
-                        fontFamily="serif"
-                        fontWeight={isSelected ? 'bold' : 'normal'}
-                        letterSpacing="1"
-                        className="transition-all duration-300 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
-                      >
-                        {c.name.toUpperCase()}
-                      </text>
+                  {/* Card Action */}
+                  <div className="pt-6 mt-6 border-t border-[#A7A29A]/15">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleOpenCityModal(k);
+                      }}
+                      className="w-full py-2.5 bg-[#C49A45]/15 hover:bg-[#C49A45] text-[#DFC07D] hover:text-[#050708] border border-[#C49A45]/50 hover:border-[#C49A45] text-[11px] uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer"
+                    >
+                      <Maximize2 className="w-3.5 h-3.5" />
+                      <span>Ver Registro Visual de {c.name}</span>
+                    </button>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
 
-                      {/* Stage number roman numeral indicator */}
-                      <text
-                        x={k === 'chartres' ? c.x - 14 : c.x + 14}
-                        y={k === 'paris' ? c.y - 20 : k === 'chartres' ? c.y + 27 : c.y + 18}
-                        textAnchor={k === 'chartres' ? 'end' : 'start'}
-                        fill="#C49A45"
-                        fontSize="9"
-                        fontFamily="serif"
-                        letterSpacing="2"
-                        opacity={isSelected ? '1' : '0.75'}
-                      >
-                        ETAPA {c.stageNum}
-                      </text>
-                    </g>
-                  );
-                })}
-              </svg>
-            </div>
+        {/* 04. TRANSIÇÃO CINEMATOGRÁFICA PARA A PRÓXIMA SEÇÃO */}
+        <footer className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#A7A29A]/15 text-xs text-[#A7A29A]">
+          <div className="flex items-center gap-3 tracking-[0.25em] uppercase text-[11px]">
+            <MapPin className="w-3.5 h-3.5 text-[#C49A45]" />
+            <span>Itinerário Completo: Paris → Chartres → Lyon</span>
           </div>
 
-        </div>
-      </div>
-
-      {/* Seamless Transition Footer into the existing Hero/Experience */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full pb-8 pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#A7A29A]/15 text-xs text-[#A7A29A]">
-        <div className="flex items-center gap-3 tracking-[0.25em] uppercase text-[11px]">
-          <MapPin className="w-3.5 h-3.5 text-[#C49A45]" />
-          <span>Rota: Paris · Chartres · Lyon</span>
-        </div>
-
-        <button
-          onClick={onProceedToExperience}
-          className="flex items-center gap-3 px-6 py-2.5 bg-[#C49A45]/15 hover:bg-[#C49A45] text-[#F0E9DC] hover:text-[#050708] border border-[#C49A45]/40 hover:border-[#C49A45] text-xs uppercase tracking-[0.25em] font-medium transition-all duration-300 group cursor-pointer"
-          aria-label="Prosseguir para a jornada visual de Lyon"
-        >
-          <span>Entrar na Jornada</span>
-          <ChevronDown className="w-3.5 h-3.5 transform group-hover:translate-y-0.5 transition-transform" />
-        </button>
-
-        <div className="text-[11px] tracking-[0.2em] uppercase font-light text-[#A7A29A]/70">
-          Edição Outubro 2027
-        </div>
-      </div>
-
-      {/* Cinematic Image Lightbox Modal for the 3 Atlas Cities */}
-      {isModalOpen && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-[#050708]/95 backdrop-blur-md transition-all duration-300"
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Fotografia histórica de ${city.name}`}
-          onClick={() => setIsModalOpen(false)}
-        >
-          {/* Modal Container */}
-          <div
-            className="relative max-w-5xl w-full bg-[#071118] border border-[#C49A45]/40 shadow-2xl p-4 md:p-6 flex flex-col gap-4 text-[#F0E9DC]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Header */}
-            <div className="flex items-center justify-between border-b border-[#A7A29A]/20 pb-3">
-              <div className="flex items-center gap-3">
-                <span className="text-xs uppercase tracking-[0.25em] text-[#C49A45] font-semibold">
-                  Etapa {city.stageNum}
-                </span>
-                <span className="text-[#A7A29A]/40">·</span>
-                <h3 className="font-serif text-xl sm:text-2xl text-[#F0E9DC] font-normal">
-                  {city.name}
-                </h3>
-                <span className="hidden sm:inline font-mono text-[11px] tracking-wider text-[#A7A29A]">
-                  ({city.coords})
-                </span>
-              </div>
-
-              {/* Close Button */}
-              <button
-                type="button"
-                onClick={() => setIsModalOpen(false)}
-                className="p-1.5 text-[#A7A29A] hover:text-[#C49A45] hover:bg-white/5 rounded transition-colors cursor-pointer"
-                aria-label="Fechar fotografia"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Large Image Frame with Navigation */}
-            <div className="relative w-full max-h-[65vh] min-h-[300px] flex items-center justify-center bg-[#050708] overflow-hidden border border-[#A7A29A]/15">
-              <img
-                src={city.image}
-                alt={`Fotografia de ${city.name}`}
-                className="max-h-[65vh] w-full object-contain filter contrast-[1.05]"
-              />
-
-              {/* Prev / Next Navigation Controls */}
-              <button
-                type="button"
-                onClick={handlePrevCity}
-                className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 bg-[#050708]/85 hover:bg-[#C49A45] text-[#F0E9DC] hover:text-[#050708] border border-[#C49A45]/40 transition-colors cursor-pointer shadow-lg"
-                aria-label="Cidade anterior"
-                title="Cidade anterior (Seta esquerda)"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                type="button"
-                onClick={handleNextCity}
-                className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 bg-[#050708]/85 hover:bg-[#C49A45] text-[#F0E9DC] hover:text-[#050708] border border-[#C49A45]/40 transition-colors cursor-pointer shadow-lg"
-                aria-label="Próxima cidade"
-                title="Próxima cidade (Seta direita)"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Footer with caption and city tabs */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 text-xs text-[#A7A29A]">
-              <div>
-                <p className="font-serif text-sm text-[#DFC07D] italic">
-                  {city.imageCaption}
-                </p>
-                <p className="text-[11px] text-[#A7A29A]/80 font-light mt-0.5">
-                  {city.description}
-                </p>
-              </div>
-
-              {/* Direct city switch buttons in modal */}
-              <div className="flex items-center gap-2 shrink-0">
-                {cityKeys.map((k) => (
-                  <button
-                    key={k}
-                    type="button"
-                    onClick={() => setSelectedCity(k)}
-                    className={`px-3 py-1 text-[10px] uppercase tracking-wider border transition-colors cursor-pointer ${
-                      selectedCity === k
-                        ? 'border-[#C49A45] bg-[#C49A45]/20 text-[#DFC07D]'
-                        : 'border-[#A7A29A]/20 text-[#A7A29A] hover:text-[#F0E9DC]'
-                    }`}
-                  >
-                    {CITIES[k].name}
-                  </button>
-                ))}
-              </div>
-            </div>
+          <div className="text-[11px] tracking-[0.2em] uppercase font-light text-[#A7A29A]/80">
+            Edição Outubro de 2027 · Colégio Iniciático
           </div>
-        </div>
-      )}
+        </footer>
+      </div>
 
-      {/* High-Resolution Fullscreen Map Modal */}
+      {/* ==================================================================== */}
+      {/* MODAL 1: HIGH-RESOLUTION FULLSCREEN MAP WITH PAN & ZOOM CONTROLS    */}
+      {/* ==================================================================== */}
       {isMapModalOpen && (
         <div
-          className="fixed inset-0 z-[120] flex items-center justify-center p-3 md:p-6 bg-[#050708]/98 backdrop-blur-lg transition-all duration-300"
+          className="fixed inset-0 z-[120] flex items-center justify-center p-3 md:p-6 bg-[#050708]/98 backdrop-blur-xl transition-all duration-300"
           role="dialog"
           aria-modal="true"
           aria-label="Atlas da França Retificada em Alta Definição"
@@ -1025,16 +566,16 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
           }}
         >
           <div
-            className="relative max-w-7xl w-full h-[92vh] bg-[#071118] border border-[#C49A45]/60 shadow-[0_25px_70px_rgba(0,0,0,0.95)] flex flex-col overflow-hidden text-[#F0E9DC]"
+            className="relative max-w-7xl w-full h-[92vh] bg-[#071118] border border-[#C49A45]/60 shadow-[0_25px_80px_rgba(0,0,0,0.95)] flex flex-col overflow-hidden text-[#F0E9DC]"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className="flex items-center justify-between border-b border-[#A7A29A]/20 px-4 md:px-6 py-3 bg-[#050708]/85 shrink-0">
+            <div className="flex items-center justify-between border-b border-[#A7A29A]/20 px-4 md:px-6 py-3 bg-[#050708]/90 shrink-0">
               <div className="flex items-center gap-3">
                 <Compass className="w-4 h-4 text-[#C49A45]" />
                 <div>
                   <h3 className="font-serif text-base sm:text-lg text-[#F0E9DC] font-normal leading-tight">
-                    Atlas da França Retificada <span className="text-[#C49A45] italic font-normal">· 1778–1782</span>
+                    Atlas da França Retificada <span className="text-[#C49A45] italic font-normal">· Projeção Histórica</span>
                   </h3>
                   <p className="text-[10px] text-[#A7A29A] tracking-wider uppercase">
                     Colégio Iniciático · Nas pegadas de Jean-Baptiste Willermoz
@@ -1044,7 +585,7 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
 
               {/* Controls */}
               <div className="flex items-center gap-2 sm:gap-3">
-                <div className="hidden sm:flex items-center gap-1 bg-[#050708] border border-[#C49A45]/30 px-1 py-0.5">
+                <div className="flex items-center gap-1 bg-[#050708] border border-[#C49A45]/30 px-2 py-1">
                   <button
                     type="button"
                     onClick={() => setMapZoom((prev) => Math.max(1, prev - 0.25))}
@@ -1053,7 +594,9 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
                   >
                     <ZoomOut className="w-4 h-4" />
                   </button>
-                  <span className="text-[10px] font-mono px-1.5 text-[#DFC07D]">{Math.round(mapZoom * 100)}%</span>
+                  <span className="text-[10px] font-mono px-2 text-[#DFC07D] min-w-[45px] text-center">
+                    {Math.round(mapZoom * 100)}%
+                  </span>
                   <button
                     type="button"
                     onClick={() => setMapZoom((prev) => Math.min(2.5, prev + 0.25))}
@@ -1065,7 +608,7 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
                   <button
                     type="button"
                     onClick={() => setMapZoom(1)}
-                    className="p-1 hover:text-[#C49A45] text-[#A7A29A] transition-colors cursor-pointer"
+                    className="p-1 hover:text-[#C49A45] text-[#A7A29A] transition-colors cursor-pointer ml-1 border-l border-[#A7A29A]/20 pl-2"
                     title="Redefinir Zoom"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
@@ -1094,8 +637,8 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
               >
                 <img
                   src="/assets/aistudio/WhatsApp_Image_2026-10-26_at_23.45.42_1141ab41.jpeg"
-                  alt="Pergaminho Histórico do Atlas da França Retificada"
-                  className="max-h-[80vh] w-auto object-contain filter contrast-[1.03]"
+                  alt="Pergaminho Monumental do Atlas da França Retificada"
+                  className="max-h-[82vh] w-auto object-contain filter contrast-[1.03]"
                 />
               </div>
             </div>
@@ -1104,25 +647,133 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-4 md:px-6 py-2.5 bg-[#050708]/90 border-t border-[#A7A29A]/15 text-xs shrink-0">
               <div className="flex items-center gap-2 text-[11px] text-[#A7A29A]">
                 <MapPin className="w-3.5 h-3.5 text-[#C49A45]" />
-                <span>Cidades da Expedição:</span>
-                {(['paris', 'chartres', 'lyon'] as CityKey[]).map((k) => (
+                <span>Explorar Fotografias das Cidades:</span>
+                {CITY_KEYS.map((k) => (
                   <button
                     key={k}
                     type="button"
                     onClick={() => {
                       setSelectedCity(k);
                       setIsMapModalOpen(false);
-                      setIsModalOpen(true);
+                      setIsPhotoModalOpen(true);
                     }}
                     className="px-2.5 py-0.5 border border-[#C49A45]/40 hover:border-[#C49A45] text-[#DFC07D] hover:bg-[#C49A45]/20 text-[10px] uppercase tracking-wider transition-colors cursor-pointer"
                   >
-                    {CITIES[k].name} (Ver Fotografias)
+                    {CITIES[k].name}
                   </button>
                 ))}
               </div>
 
               <div className="text-[10px] text-[#C49A45] uppercase tracking-[0.2em] font-medium">
                 16 a 25 de Outubro de 2027 · Colégio Iniciático
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ==================================================================== */}
+      {/* MODAL 2: HIGH-RESOLUTION DOCUMENTARY PHOTOGRAPHY LIGHTBOX           */}
+      {/* ==================================================================== */}
+      {isPhotoModalOpen && (
+        <div
+          className="fixed inset-0 z-[130] flex items-center justify-center p-4 md:p-8 bg-[#050708]/95 backdrop-blur-md transition-all duration-300"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Fotografia histórica de ${city.name}`}
+          onClick={() => setIsPhotoModalOpen(false)}
+        >
+          <div
+            className="relative max-w-5xl w-full bg-[#071118] border border-[#C49A45]/50 shadow-2xl p-4 md:p-6 flex flex-col gap-4 text-[#F0E9DC]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-[#A7A29A]/20 pb-3">
+              <div className="flex items-center gap-3">
+                <span className="text-xs uppercase tracking-[0.25em] text-[#C49A45] font-semibold">
+                  Etapa {city.stageNum}
+                </span>
+                <span className="text-[#A7A29A]/40">·</span>
+                <h3 className="font-serif text-xl sm:text-2xl text-[#F0E9DC] font-normal">
+                  {city.name}
+                </h3>
+                <span className="hidden sm:inline font-mono text-[11px] tracking-wider text-[#A7A29A]">
+                  ({city.coords})
+                </span>
+              </div>
+
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() => setIsPhotoModalOpen(false)}
+                className="p-1.5 text-[#A7A29A] hover:text-[#C49A45] hover:bg-white/5 rounded transition-colors cursor-pointer"
+                aria-label="Fechar fotografia"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Photographic Canvas with Left/Right arrows */}
+            <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] bg-[#040608] overflow-hidden border border-[#C49A45]/30">
+              <img
+                src={city.image}
+                alt={city.imageCaption}
+                className="w-full h-full object-cover object-center filter contrast-[1.05]"
+              />
+
+              {/* Prev/Next buttons */}
+              <button
+                type="button"
+                onClick={handlePrevCity}
+                className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-[#050708]/75 hover:bg-[#C49A45] text-[#F0E9DC] hover:text-[#050708] border border-[#C49A45]/40 transition-colors cursor-pointer"
+                aria-label="Cidade anterior"
+                title="Cidade anterior (Seta esquerda)"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+
+              <button
+                type="button"
+                onClick={handleNextCity}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-[#050708]/75 hover:bg-[#C49A45] text-[#F0E9DC] hover:text-[#050708] border border-[#C49A45]/40 transition-colors cursor-pointer"
+                aria-label="Próxima cidade"
+                title="Próxima cidade (Seta direita)"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Narrative & Caption Footer */}
+            <div className="space-y-2 pt-1">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <p className="font-serif text-sm sm:text-base text-[#DFC07D] italic">
+                  {city.subtitle}
+                </p>
+                <div className="text-[10px] uppercase tracking-[0.2em] text-[#A7A29A]">
+                  Acervo Fotográfico Documental
+                </div>
+              </div>
+              <p className="text-xs text-[#F0E9DC]/80 font-light leading-relaxed">
+                {city.imageCaption}
+              </p>
+              <div className="pt-2 flex items-center justify-between border-t border-[#A7A29A]/15 text-[11px] text-[#A7A29A]">
+                <span>Navegue com as setas do teclado (← / →) ou ESC para fechar</span>
+                <div className="flex items-center gap-1.5">
+                  {CITY_KEYS.map((k) => (
+                    <button
+                      key={k}
+                      type="button"
+                      onClick={() => setSelectedCity(k)}
+                      className={`px-2.5 py-0.5 text-[10px] uppercase tracking-wider border transition-colors cursor-pointer ${
+                        selectedCity === k
+                          ? 'border-[#C49A45] bg-[#C49A45]/20 text-[#DFC07D]'
+                          : 'border-[#A7A29A]/20 text-[#A7A29A] hover:text-[#F0E9DC]'
+                      }`}
+                    >
+                      {CITIES[k].name}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
