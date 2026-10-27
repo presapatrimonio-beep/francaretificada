@@ -7,20 +7,23 @@ export const ItinerarySection: React.FC = () => {
   const itinerary: ItineraryDay[] = [
     {
       day: 1,
+      date: '15/10/2027',
       title: 'Brasil → França',
-      subtitle: 'Partida & Travessia',
-      description: 'Embarque no Aeroporto Internacional de Guarulhos com destino a Paris. Noite a bordo e início da jornada de estudos.',
-      highlights: ['Saída de São Paulo (Guarulhos)', 'Voo transatlântico noturno'],
+      subtitle: 'Embarque Previsto & Travessia',
+      description: 'Embarque previsto no Aeroporto Internacional de Guarulhos com destino à França. Noite a bordo e início da jornada transatlântica.',
+      highlights: ['Embarque em São Paulo (Guarulhos)', 'Voo noturno com destino a Paris'],
     },
     {
       day: 2,
+      date: '16/10/2027',
       title: 'Chegada a Paris',
-      subtitle: 'Ambientação & Abertura Histórica',
-      description: 'Desembarque na capital francesa, traslado e check-in. Tarde dedicada à ambientação na cidade e conferência introdutória sobre a França do Antigo Regime.',
-      highlights: ['Chegada a Paris', 'Sessão inaugural de contexto histórico', 'Jantar de abertura'],
+      subtitle: 'Início da Programação Terrestre',
+      description: 'Chegada prevista na capital francesa, traslado e check-in. Início oficial da programação de 10 dias com ambientação urbana e introdução ao contexto do século XVIII.',
+      highlights: ['Chegada prevista a Paris', 'Abertura da programação terrestre', 'Ambientação histórica'],
     },
     {
       day: 3,
+      date: '17/10/2027',
       title: 'Paris Maçônica',
       subtitle: 'Memória Institucional & Rue Cadet',
       description: 'Visita ao acervo do Musée de la Franc-Maçonnerie e aos espaços históricos da Rue Cadet. Análise dos primeiros ritos e sistemas maçônicos parisienses.',
@@ -28,6 +31,7 @@ export const ItinerarySection: React.FC = () => {
     },
     {
       day: 4,
+      date: '18/10/2027',
       title: 'Iluminismo e História',
       subtitle: 'O Panteão das Ideias & Quartier Latin',
       description: 'Percurso pelo Quartier Latin e visita ao Panthéon. Discussão sobre a dialética entre os filósofos iluministas, a maçonaria especulativa e as ordens místicas.',
@@ -35,45 +39,51 @@ export const ItinerarySection: React.FC = () => {
     },
     {
       day: 5,
+      date: '19/10/2027',
       title: 'Pesquisa Documental',
       subtitle: 'Acervos & Manuscritos',
-      description: 'Jornada orientada à Bibliothèque nationale de France (BnF), conforme condições de acesso e disponibilidade institucional. Leitura de correspondências históricas.',
+      description: 'Jornada orientada à Bibliothèque nationale de France (BnF), conforme condições de acesso e disponibilidade institucional. Análise de fontes primárias.',
       highlights: ['Bibliothèque nationale de France', 'Metodologia de fontes primárias'],
     },
     {
       day: 6,
+      date: '20/10/2027',
       title: 'Chartres',
       subtitle: 'Pedra, Luz & Espaço Litúrgico',
-      description: 'Excursão de dia inteiro a Chartres. Investigação da arquitetura gótica da Catedral, o simbolismo dos vitrais do século XIII e a distinção entre a história medieval e as leituras modernas.',
+      description: 'Excursão de dia inteiro a Chartres. Investigação in situ da arquitetura gótica da Catedral, o simbolismo dos vitrais do século XIII e a distinção histórica dos monumentos.',
       highlights: ['Catedral Notre-Dame de Chartres', 'Estudo in situ da luz e geometria sagrada', 'Retorno a Paris'],
     },
     {
       day: 7,
+      date: '21/10/2027',
       title: 'Paris → Lyon',
-      subtitle: 'Deslocamento Ferroviário Rumo ao Berço de Willermoz',
-      description: 'Viagem em trem de alta velocidade (TGV) cortando a Borgonha em direção a Lyon. Chegada, instalação e caminhada de reconhecimento às margens do Saône.',
-      highlights: ['Trem Paris → Lyon', 'Presqu&apos;île de Lyon', 'Introdução à geografia urbana willermoziana'],
+      subtitle: 'Deslocamento Ferroviário em TGV',
+      description: 'Viagem em trem de alta velocidade (TGV) rumo a Lyon. Chegada, instalação e caminhada de reconhecimento pelo centro histórico e margens do Saône.',
+      highlights: ['Deslocamento TGV Paris → Lyon', 'Presqu&apos;île de Lyon', 'Introdução à geografia urbana willermoziana'],
     },
     {
       day: 8,
+      date: '22/10/2027',
       title: 'Willermoz e a Reforma de Lyon',
       subtitle: 'O Convento das Gálias de 1778',
-      description: 'Percurso pelos cenários históricos da Lyon setecentista: Vieux Lyon, os antigos bairros dos negociantes de seda e os espaços associados ao círculo intelectual de Willermoz.',
-      highlights: ['Vieux Lyon', 'Tradição do Convento das Gálias', 'A gênese do Código Maçônico das Lojas Retificadas'],
+      description: 'Percurso pelos cenários da Lyon setecentista: Vieux Lyon, os antigos bairros dos negociantes de seda e os espaços associados ao círculo intelectual de Willermoz.',
+      highlights: ['Vieux Lyon', 'Tradição do Convento das Gálias', 'Gênese do Código Maçônico das Lojas Retificadas'],
     },
     {
       day: 9,
+      date: '23/10/2027',
       title: 'Lyon e a Dimensão Cristã',
       subtitle: 'Fourvière & A Tradição Cavalheiresca',
-      description: 'Subida à colina de Fourvière com vista panorâmica sobre a cidade e confluência do Ródano e Saône. Discussão sobre a espiritualidade cristã e o ideal cavalheiresco do Regime.',
-      highlights: ['Colina de Fourvière', 'Mesa de síntese doutrinária', 'Jantar solene de encerramento'],
+      description: 'Subida à colina de Fourvière com vista panorâmica sobre o Saône e a cidade. Sessão temática sobre a espiritualidade cristã e a cavalaria espiritual do Regime.',
+      highlights: ['Colina de Fourvière', 'Mesa de síntese doutrinária', 'Encontro solene de encerramento'],
     },
     {
       day: 10,
+      date: '24–25/10/2027',
       title: 'Síntese e Retorno',
-      subtitle: 'Conclusão dos Estudos & Retorno ao Brasil',
-      description: 'Encerramento oficial das atividades acadêmicas da expedição. Traslado para o aeroporto e embarque de volta ao Brasil, conforme aéreo contratado.',
-      highlights: ['Entrega do caderno de encerramento', 'Voo de retorno ao Brasil'],
+      subtitle: 'Data de Referência para Encerramento',
+      description: 'Encerramento oficial das atividades acadêmicas. Data de referência de retorno em 25/10/2027 com traslado ao aeroporto e voo de volta ao Brasil, sujeita à confirmação das malhas aéreas.',
+      highlights: ['25/10/2027: Data de referência para retorno ao Brasil', 'Entrega do caderno de conclusão'],
     },
   ];
 
@@ -83,13 +93,13 @@ export const ItinerarySection: React.FC = () => {
         {/* Section title */}
         <div className="max-w-4xl mb-20 md:mb-28">
           <div className="text-xs uppercase tracking-[0.3em] text-[#C49A45] font-medium mb-3">
-            Itinerário Pedagógico
+            Itinerário Pedagógico · 16 a 25 de Outubro de 2027
           </div>
           <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl text-[#F0E9DC] font-light leading-tight tracking-tight">
             Dez dias para estudar uma tradição em seu contexto.
           </h2>
           <p className="font-serif text-lg text-[#F0E9DC]/80 font-light mt-4 max-w-2xl leading-relaxed">
-            Uma progressão cronológica e temática estruturada para que cada local visitado ilumine os textos e a formação moral do Regime Retificado.
+            Uma progressão cronológica e temática de 16 a 25 de outubro de 2027 estruturada para que cada local visitado ilumine os textos e a formação moral do Regime Retificado.
           </p>
         </div>
 
@@ -117,6 +127,10 @@ export const ItinerarySection: React.FC = () => {
                   <span className="font-serif text-xl sm:text-2xl text-[#C49A45] font-normal tracking-wide">
                     Dia {String(item.day).padStart(2, '0')}
                   </span>
+                  <span className="font-mono text-xs text-[#F0E9DC]/85 tracking-wider">
+                    {item.date}
+                  </span>
+                  <span aria-hidden="true" className="text-[#A7A29A]/40">·</span>
                   <span className="text-xs uppercase tracking-[0.2em] text-[#A7A29A] font-sans">
                     {item.subtitle}
                   </span>
@@ -147,11 +161,13 @@ export const ItinerarySection: React.FC = () => {
         </div>
 
         {/* Operational adjustment note */}
-        <div className="mt-20 pt-8 border-t border-[#A7A29A]/15 text-xs text-[#A7A29A] max-w-2xl font-light leading-relaxed">
+        <div className="mt-20 pt-8 border-t border-[#A7A29A]/15 text-xs text-[#A7A29A] max-w-3xl font-light leading-relaxed space-y-2">
           <strong className="text-[#F0E9DC] font-medium uppercase tracking-wider block mb-1">
-            Nota de Planejamento Operacional:
+            Proposta de Planejamento & Condições Operacionais:
           </strong>
-          O itinerário definitivo será ajustado às datas exatas de voo, aos horários vigentes de funcionamento das instituições e bibliotecas francesas, às condições climáticas e às confirmações de reservas e deslocamentos ferroviários.
+          <p>
+            As datas de 16 a 25 de outubro de 2027 constituem uma proposta de planejamento. O itinerário definitivo será ajustado às datas e horários dos voos contratados, horários vigentes de funcionamento das instituições e acervos na França e às confirmações de reservas dos prestadores de serviços.
+          </p>
         </div>
       </div>
     </section>

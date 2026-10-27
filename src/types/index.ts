@@ -12,6 +12,7 @@ export interface DossierFormData {
 
 export interface ItineraryDay {
   day: number;
+  date?: string;
   title: string;
   subtitle: string;
   description: string;

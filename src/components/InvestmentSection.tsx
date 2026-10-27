@@ -22,20 +22,19 @@ export const InvestmentSection: React.FC<InvestmentSectionProps> = ({ onOpenDoss
             </h2>
           </div>
 
-          {/* Pricing statement pure typography */}
-          <div className="py-8 border-y border-[#A7A29A]/20">
-            <span className="text-xs uppercase tracking-[0.3em] text-[#A7A29A] font-light block mb-3">
-              Valor de Referência Inicial
-            </span>
-            <div className="flex flex-wrap items-baseline gap-4">
-              <span className="text-sm font-serif text-[#C49A45] uppercase tracking-wider">A partir de</span>
-              <span className="font-serif text-5xl sm:text-7xl text-[#F0E9DC] font-normal tracking-tight">
-                R$ 12.990
-              </span>
-              <span className="text-sm text-[#A7A29A] font-sans">por pessoa</span>
+          {/* Investment status pure typography */}
+          <div className="py-8 border-y border-[#A7A29A]/20 space-y-3">
+            <div className="text-xs uppercase tracking-[0.3em] text-[#C49A45] font-medium">
+              Condições Comerciais
             </div>
-            <div className="text-xs uppercase tracking-[0.25em] text-[#C49A45] mt-3 font-medium">
-              Apartamento Duplo · França — Julho de 2027
+            <h3 className="font-serif text-3xl sm:text-5xl md:text-6xl text-[#F0E9DC] font-normal tracking-tight">
+              INVESTIMENTO SOB CONSULTA
+            </h3>
+            <p className="text-base sm:text-lg text-[#F0E9DC]/85 font-light italic max-w-2xl leading-relaxed">
+              O investimento será definido mediante cotação atualizada de passagens aéreas, hospedagem, transportes, seguro-viagem, ingressos e demais serviços previstos no roteiro.
+            </p>
+            <div className="text-xs uppercase tracking-[0.25em] text-[#C49A45] pt-1 font-medium">
+              FRANÇA · 16–25 OUTUBRO 2027
             </div>
           </div>
 
@@ -46,25 +45,32 @@ export const InvestmentSection: React.FC<InvestmentSectionProps> = ({ onOpenDoss
                 <span>Ressalva Jurídica & Condições de Atualização Tarifária</span>
               </div>
               <p>
-                O valor apresentado possui <strong className="text-[#F0E9DC] font-normal">caráter exclusivamente preliminar e estimativo</strong> para fins de planejamento orçamentário, não configurando oferta pública vinculante nem proposta comercial definitiva nos termos do Código Civil e do Código de Defesa do Consumidor.
+                O valor da excursão é disponibilizado sob consulta e possui <strong className="text-[#F0E9DC] font-normal">caráter exclusivamente preliminar para fins de planejamento</strong>, não configurando oferta pública vinculante nem proposta comercial definitiva nos termos do Código Civil e do Código de Defesa do Consumidor.
               </p>
               <p>
-                O montante final estará <strong className="text-[#F0E9DC] font-normal">expressamente sujeito a atualização e reajuste</strong> em razão de oscilações cambiais, tarifárias e da disponibilidade efetiva junto aos prestadores e fornecedores de serviços terceirizados à época da contratação, compreendendo: passagens aéreas internacionais e taxas aeroportuárias, diárias e políticas da rede hoteleira, traslados ferroviários (TGV/SNCF), serviços de alimentação e restaurantes, bilheterias e gratuidades de museus, acervos e monumentos históricos, bem como contratação de seguro-viagem internacional e operadores receptivos locais.
+                O montante final estará <strong className="text-[#F0E9DC] font-normal">expressamente sujeito a cotação e atualização</strong> em razão de oscilações cambiais, tarifárias e da disponibilidade efetiva junto aos prestadores e fornecedores de serviços terceirizados à época da contratação, compreendendo: passagens aéreas internacionais e taxas aeroportuárias, diárias e políticas da rede hoteleira, traslados ferroviários (TGV/SNCF), serviços de alimentação e restaurantes, bilheterias e gratuidades de museus, acervos e monumentos históricos, bem como contratação de seguro-viagem internacional e operadores receptivos locais.
               </p>
               <p className="text-[11px] text-[#A7A29A]/80 border-t border-[#A7A29A]/15 pt-2">
-                A confirmação do preço definitivo, das condições de pagamento e do rol exato de serviços inclusos e excluídos dar-se-á formalmente por meio de contrato específico de prestação de serviços no momento da abertura oficial das inscrições. A solicitação do dossiê ou cadastro de interesse não implica reserva garantida de vaga nem obrigação pecuniária para qualquer das partes.
+                A confirmação dos valores definitivos, das condições de pagamento e do rol exato de serviços inclusos e excluídos dar-se-á formalmente por meio de contrato específico de prestação de serviços no momento da abertura oficial das inscrições. A solicitação de cotação ou cadastro de interesse não implica reserva garantida de vaga nem obrigação pecuniária para qualquer das partes.
               </p>
             </div>
           </div>
 
-          {/* CTA Button */}
-          <div className="pt-4">
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
             <button
               onClick={onOpenDossier}
               className="inline-flex items-center justify-center gap-3 px-10 py-4 bg-[#C49A45] hover:bg-[#DFC07D] text-[#050708] font-sans text-xs tracking-[0.25em] font-bold uppercase transition-all duration-300 shadow-2xl active:translate-y-px"
             >
               <FileText className="w-4 h-4" />
-              <span>Solicitar o Dossiê Completo</span>
+              <span>Solicitar Cotação</span>
+            </button>
+
+            <button
+              onClick={onOpenDossier}
+              className="inline-flex items-center justify-center px-8 py-4 border border-[#F0E9DC]/30 hover:border-[#C49A45] text-[#F0E9DC] hover:text-[#C49A45] font-sans text-xs tracking-[0.2em] font-medium uppercase transition-colors"
+            >
+              <span>Tenho Interesse na Excursão</span>
             </button>
           </div>
         </div>

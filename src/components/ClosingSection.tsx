@@ -44,6 +44,9 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenDossier })
             </div>
 
             <div className="pt-4">
+              <div className="text-xs uppercase tracking-[0.28em] text-[#C49A45] font-medium mb-4">
+                FRANÇA · 16–25 OUTUBRO 2027
+              </div>
               <button
                 onClick={onOpenDossier}
                 className="inline-flex items-center justify-center px-10 py-4 bg-[#C49A45] hover:bg-[#DFC07D] text-[#050708] font-sans text-xs tracking-[0.25em] font-bold uppercase transition-all duration-300 shadow-2xl active:translate-y-px"

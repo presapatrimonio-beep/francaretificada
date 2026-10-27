@@ -149,13 +149,13 @@ export const DossierModal: React.FC<DossierModalProps> = ({ isOpen, onClose }) =
             {/* Modal Header */}
             <div className="mb-8">
               <div className="text-xs uppercase tracking-[0.3em] text-[#C49A45] font-medium mb-2">
-                Excursão França Retificada 2027
+                FRANÇA · 16–25 OUTUBRO 2027
               </div>
               <h3 id="modal-title" className="font-serif text-2xl sm:text-3xl text-[#F0E9DC] font-light">
-                Solicitação do Dossiê Completo
+                Solicitação de Cotação & Dossiê
               </h3>
               <p className="text-xs sm:text-sm text-[#A7A29A] mt-2 font-light leading-relaxed">
-                Cadastre seus dados para receber o caderno analítico com detalhes de itinerário, bibliografia recomendada e opções de pagamento.
+                Preencha seus dados para receber a cotação atualizada dos prestadores de serviços e o caderno analítico da excursão.
               </p>
             </div>
 
@@ -312,7 +312,7 @@ export const DossierModal: React.FC<DossierModalProps> = ({ isOpen, onClose }) =
               {/* Legal disclaimer note */}
               <div className="p-3 bg-[#050708] border border-[#A7A29A]/15 text-[11px] text-[#A7A29A] leading-relaxed font-light">
                 <span className="text-[#C49A45] font-medium uppercase tracking-wider block mb-0.5">Nota Importante:</span>
-                O valor de referência é estimativo e estará sujeito a confirmação e reajuste conforme a disponibilidade e tarifas dos prestadores de serviços (companhias aéreas, hotéis, restaurantes, museus e transporte). O cadastro não gera compromisso financeiro vinculante.
+                O investimento está sob consulta e será definido mediante cotação atualizada e disponibilidade dos prestadores de serviços (aéreo, hotelaria, transporte, restaurantes e ingressos). O envio não gera obrigação de contratação vinculante.
               </div>
 
               {/* Submit Button */}
@@ -327,7 +327,7 @@ export const DossierModal: React.FC<DossierModalProps> = ({ isOpen, onClose }) =
                   disabled={isSubmitting}
                   className="px-8 py-3.5 bg-[#C49A45] hover:bg-[#DFC07D] text-[#050708] font-sans text-xs tracking-[0.2em] font-bold uppercase transition-all duration-300 disabled:opacity-50"
                 >
-                  {isSubmitting ? 'Registrando...' : 'Enviar Solicitação'}
+                  {isSubmitting ? 'Registrando...' : 'Enviar Solicitação de Cotação'}
                 </button>
               </div>
             </form>

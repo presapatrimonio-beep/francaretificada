@@ -58,9 +58,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onDiscover }) => {
             }`}
           >
             <div className="flex items-center gap-3 text-xs md:text-sm tracking-[0.35em] uppercase text-[#C49A45] font-medium mb-4">
-              <span>França</span>
-              <span aria-hidden="true" className="text-[#A7A29A]/50">·</span>
-              <span>Julho de 2027</span>
+              <span>FRANÇA · 16–25 OUTUBRO 2027</span>
             </div>
           </div>
 
