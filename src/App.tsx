@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { OpeningScreen } from './components/OpeningScreen';
 import { Navbar } from './components/Navbar';
 import { AtlasSection } from './components/AtlasSection';
 import { HeroSection } from './components/HeroSection';
@@ -51,6 +52,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#050708] text-[#F0E9DC] selection:bg-[#C49A45]/30 selection:text-[#F0E9DC] relative">
+      {/* 00. TELA DE ABERTURA CINEMATOGRÁFICA (Vídeo abertura.mp4 em tela cheia com botão ENTRAR) */}
+      <OpeningScreen />
+
       {/* Subtle gold line tracking scroll depth */}
       <div
         className="fixed top-0 left-0 h-[2px] bg-[#C49A45] z-[60] transition-all duration-100 ease-out"
