@@ -77,7 +77,7 @@ export const InvestmentSection: React.FC<InvestmentSectionProps> = ({
 
                 {/* Monumental Price Display */}
                 <div className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-[#DFC07D] font-normal tracking-tight leading-none drop-shadow-sm">
-                  R$ 20.000,00
+                  R$ 20 Mil
                 </div>
 
                 <div className="text-xs sm:text-sm uppercase tracking-[0.2em] text-[#A7A29A] font-light">
@@ -87,7 +87,7 @@ export const InvestmentSection: React.FC<InvestmentSectionProps> = ({
 
               <div className="lg:max-w-md space-y-3 text-xs sm:text-sm text-[#F0E9DC]/85 font-light leading-relaxed bg-[#050305]/70 p-5 border border-[#A7A29A]/15">
                 <p>
-                  Pela média de mercado e considerando as variáveis envolvidas na organização de uma expedição internacional deste porte, indicamos uma cotização aproximada de <strong className="text-[#DFC07D] font-medium">R$ 20.000,00 por participante</strong>.
+                  Pela média de mercado e considerando as variáveis envolvidas na organização de uma expedição internacional deste porte, indicamos uma cotização aproximada de <strong className="text-[#DFC07D] font-medium">R$ 20 Mil por participante</strong>.
                 </p>
                 <p className="text-[#A7A29A] text-xs pt-1 border-t border-[#A7A29A]/10">
                   O valor é uma <strong className="text-[#F0E9DC] font-normal">projeção preliminar de planejamento</strong> e poderá sofrer alterações conforme a efetiva contratação dos serviços.
@@ -180,44 +180,56 @@ export const InvestmentSection: React.FC<InvestmentSectionProps> = ({
                     <FileText className="w-6 h-6" />
                   </div>
                   <div>
-                    <h4 className="font-serif text-2xl sm:text-3xl text-[#F0E9DC] font-light group-hover:text-[#DFC07D] transition-colors">
-                      Solicitar Cotação
+                    <h4 className="font-serif text-2xl sm:text-3xl text-[#F0E9DC] font-light group-hover:text-[#DFC07D] transition-colors leading-tight">
+                      Solicitar Cotação e Contratar a Expedição
                     </h4>
-                    <p className="text-xs text-[#DFC07D] uppercase tracking-wider font-light mt-0.5">
-                      Condições de Pagamento e Disponibilidade
+                    <p className="text-xs text-[#DFC07D] uppercase tracking-wider font-medium mt-1">
+                      Pronto para garantir sua participação na expedição?
                     </p>
                   </div>
                 </div>
 
                 <p className="text-sm sm:text-base text-[#F0E9DC]/85 font-light leading-relaxed">
-                  Deseja receber informações sobre valores, condições de pagamento e disponibilidade? Entre em contato com a organização para solicitar uma cotação atualizada.
+                  Solicite uma proposta comercial atualizada para aquisição do pacote completo da viagem. Nossa organização fornecerá as condições de contratação, disponibilidade e orientações para formalizar sua participação.
                 </p>
 
-                <ul className="space-y-2 text-xs text-[#A7A29A] font-light pt-2">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#C49A45]" />
-                    <span>Detalhamento dos custos de hospedagem e traslados</span>
+                <ul className="space-y-2 text-xs sm:text-sm text-[#A7A29A] font-light pt-2">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C49A45] shrink-0 mt-0.5" />
+                    <span>Valores atualizados do pacote completo por participante.</span>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#C49A45]" />
-                    <span>Opções de quarto individual (single) ou duplo compartilhado</span>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C49A45] shrink-0 mt-0.5" />
+                    <span>Confirmação de disponibilidade de passagens aéreas e hospedagem.</span>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#C49A45]" />
-                    <span>Condições de parcelamento e cronograma de pagamentos</span>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C49A45] shrink-0 mt-0.5" />
+                    <span>Escolha de acomodação: quarto individual (single) ou duplo compartilhado.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C49A45] shrink-0 mt-0.5" />
+                    <span>Condições de pagamento, parcelamento e cronograma de parcelas.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C49A45] shrink-0 mt-0.5" />
+                    <span>Orientações para reserva, emissão e confirmação da contratação.</span>
                   </li>
                 </ul>
+
+                <p className="text-xs sm:text-sm text-[#DFC07D]/90 font-serif italic pt-3 border-t border-[#C49A45]/20 leading-relaxed">
+                  Dê o próximo passo e prepare-se para viver essa experiência histórica na França.
+                </p>
               </div>
 
               <div className="pt-8 mt-8 border-t border-[#A7A29A]/15">
                 <button
                   type="button"
                   onClick={handleQuoteClick}
-                  className="w-full py-4 px-8 bg-[#C49A45] hover:bg-[#DFC07D] text-[#050708] font-sans text-xs tracking-[0.25em] font-bold uppercase transition-all duration-300 shadow-xl flex items-center justify-center gap-3 cursor-pointer group-hover:scale-[1.01]"
-                  aria-label="Solicitar Cotação Atualizada da Expedição"
+                  className="w-full py-4 px-6 bg-[#C49A45] hover:bg-[#DFC07D] text-[#050708] font-sans text-xs tracking-[0.2em] font-bold uppercase transition-all duration-300 shadow-xl flex items-center justify-center gap-3 cursor-pointer group-hover:scale-[1.01]"
+                  aria-label="Solicitar Cotação e Contratar a Expedição"
                 >
                   <FileText className="w-4 h-4" />
-                  <span>SOLICITAR COTAÇÃO</span>
+                  <span>SOLICITAR COTAÇÃO E CONTRATAÇÃO</span>
                   <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>

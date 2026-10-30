@@ -160,7 +160,7 @@ export const DossierModal: React.FC<DossierModalProps> = ({
             <div className="p-3.5 bg-[#050305] border border-[#A7A29A]/15 text-xs text-[#A7A29A] max-w-md mx-auto">
               {isInteresse
                 ? 'Lembramos que a manifestação de interesse não representa reserva confirmada, contratação ou compromisso financeiro.'
-                : 'A estimativa de R$ 20.000,00 por participante é uma projeção preliminar de planejamento orçamentário sujeita às contratações definitivas.'}
+                : 'A estimativa de R$ 20 Mil por participante é uma projeção preliminar de planejamento orçamentário sujeita às contratações definitivas.'}
             </div>
 
             <div className="pt-4">
