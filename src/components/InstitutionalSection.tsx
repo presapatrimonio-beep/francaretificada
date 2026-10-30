@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Compass, Plane, CheckCircle2, Award } from 'lucide-react';
+import { Shield, Compass, Plane, CheckCircle2, Award, Globe, Instagram, ExternalLink } from 'lucide-react';
 
 export const InstitutionalSection: React.FC = () => {
   return (
@@ -58,13 +58,42 @@ export const InstitutionalSection: React.FC = () => {
                   />
                 </div>
 
-                <div className="pt-4 border-t border-[#A7A29A]/15 w-full">
-                  <span className="text-[10px] uppercase tracking-[0.28em] text-[#DFC07D] font-serif block font-medium">
-                    Scientia et Labore
-                  </span>
-                  <span className="text-[9px] uppercase tracking-widest text-[#A7A29A]/80 font-light mt-1 block">
-                    Patrimônio Tradicional & Rer
-                  </span>
+                <div className="pt-4 border-t border-[#A7A29A]/15 w-full space-y-3">
+                  <div>
+                    <span className="text-[10px] uppercase tracking-[0.28em] text-[#DFC07D] font-serif block font-medium">
+                      Scientia et Labore
+                    </span>
+                    <span className="text-[9px] uppercase tracking-widest text-[#A7A29A]/80 font-light mt-0.5 block">
+                      Patrimônio Tradicional & RER
+                    </span>
+                  </div>
+
+                  {/* Links Oficiais: Website & Instagram */}
+                  <div className="pt-2.5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center gap-2 w-full">
+                    <a
+                      href="https://gprer.com.br/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#050708] border border-[#C49A45]/40 hover:border-[#DFC07D] text-[#DFC07D] hover:text-[#F0E9DC] text-[10px] tracking-wider font-sans transition-all duration-300 w-full sm:w-auto justify-center group/link cursor-pointer shadow-sm hover:bg-[#C49A45]/15"
+                      title="Acessar o portal oficial do GPRER"
+                    >
+                      <Globe className="w-3.5 h-3.5 text-[#C49A45] group-hover/link:text-[#DFC07D]" />
+                      <span>gprer.com.br</span>
+                      <ExternalLink className="w-2.5 h-2.5 text-[#A7A29A] opacity-70 group-hover/link:opacity-100" />
+                    </a>
+
+                    <a
+                      href="https://www.instagram.com/prioradoretificadobr/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#050708] border border-[#C49A45]/40 hover:border-[#DFC07D] text-[#DFC07D] hover:text-[#F0E9DC] text-[10px] tracking-wider font-sans transition-all duration-300 w-full sm:w-auto justify-center group/link cursor-pointer shadow-sm hover:bg-[#C49A45]/15"
+                      title="Instagram Oficial @prioradoretificadobr"
+                    >
+                      <Instagram className="w-3.5 h-3.5 text-[#C49A45] group-hover/link:text-[#DFC07D]" />
+                      <span>Instagram</span>
+                      <ExternalLink className="w-2.5 h-2.5 text-[#A7A29A] opacity-70 group-hover/link:opacity-100" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
