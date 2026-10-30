@@ -72,23 +72,30 @@ export const Navbar: React.FC<NavbarProps> = ({
       }`}
     >
       <div className="max-w-[1700px] mx-auto px-6 md:px-10 flex items-center justify-between gap-6">
-        {/* Identidade da Expedição à Esquerda */}
+        {/* Identidade da Expedição com o Brasão Oficial do Priorado */}
         <a
           href="#atlas"
           onClick={(e) => handleLinkClick(e, '#atlas')}
-          className="group flex flex-col shrink-0 text-decoration-none cursor-pointer"
+          className="group flex items-center gap-3 shrink-0 text-decoration-none cursor-pointer"
           title="Atlas da França Retificada 2027"
         >
-          <span className="font-serif text-lg md:text-xl font-normal tracking-[0.22em] text-[#F0E9DC] group-hover:text-[#C49A45] transition-colors uppercase leading-none">
-            França Retificada
-          </span>
-          <span className="text-[9px] uppercase tracking-[0.3em] text-[#C49A45] font-sans font-light mt-1">
-            Expedição 2027
-          </span>
+          <img
+            src="/assets/aistudio/priorado_eddc943e.png"
+            alt="Brasão Oficial do Grande Priorado do Rito Escocês Retificado do Brasil"
+            className="h-10 md:h-12 w-auto object-contain shrink-0 drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] group-hover:scale-105 transition-transform duration-300"
+          />
+          <div className="flex flex-col justify-center">
+            <span className="font-serif text-lg md:text-xl font-normal tracking-[0.22em] text-[#F0E9DC] group-hover:text-[#C49A45] transition-colors uppercase leading-none">
+              França Retificada
+            </span>
+            <span className="text-[9px] uppercase tracking-[0.3em] text-[#C49A45] font-sans font-light mt-1">
+              Expedição 2027
+            </span>
+          </div>
         </a>
 
         {/* Links de Navegação Editorial Completa */}
-        <nav className="hidden xl:flex items-center gap-5 2xl:gap-7 text-xs uppercase tracking-[0.18em] font-medium text-[#F0E9DC]/75 shrink-0">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-6 2xl:gap-7 text-[11px] xl:text-xs uppercase tracking-[0.16em] xl:tracking-[0.18em] font-medium text-[#F0E9DC]/75 shrink-0">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -101,33 +108,25 @@ export const Navbar: React.FC<NavbarProps> = ({
           ))}
         </nav>
 
-        {/* Ações e Controles */}
-        <div className="flex items-center gap-4 shrink-0">
+        {/* Ações e Controles (Sem botão de solicitar informações) */}
+        <div className="flex items-center gap-3 shrink-0">
           {/* Trilha Sonora cinematográfica */}
           {onToggleAudio && (
             <button
               onClick={onToggleAudio}
-              className="hidden sm:flex items-center gap-2 text-xs uppercase tracking-widest text-[#A7A29A] hover:text-[#C49A45] transition-colors py-1 px-2 cursor-pointer"
+              className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#A7A29A] hover:text-[#C49A45] transition-colors py-1.5 px-2.5 border border-white/5 hover:border-[#C49A45]/30 cursor-pointer"
               title={isAudioActive ? 'Pausar trilha sonora cinematográfica' : 'Ouvir trilha sonora cinematográfica (Piano & Orquestra)'}
               aria-label="Controle de trilha sonora cinematográfica"
             >
               {isAudioActive ? <Volume2 className="w-3.5 h-3.5 text-[#C49A45]" /> : <VolumeX className="w-3.5 h-3.5" />}
-              <span className="text-[10px] hidden 2xl:inline">{isAudioActive ? 'Trilha Ativa' : 'Trilha Sonora'}</span>
+              <span className="text-[10px] hidden sm:inline">{isAudioActive ? 'Trilha Ativa' : 'Trilha Sonora'}</span>
             </button>
           )}
-
-          {/* Botão de Chamada para a Expedição */}
-          <button
-            onClick={onOpenDossier}
-            className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold tracking-[0.18em] uppercase text-[#050708] bg-[#C49A45] hover:bg-[#DFC07D] transition-colors whitespace-nowrap active:translate-y-px cursor-pointer"
-          >
-            Solicitar Informações
-          </button>
 
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="xl:hidden p-2 text-[#F0E9DC]/80 hover:text-[#C49A45] focus:outline-none cursor-pointer"
+            className="lg:hidden p-2 text-[#F0E9DC]/80 hover:text-[#C49A45] focus:outline-none cursor-pointer"
             aria-label="Abrir menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -137,7 +136,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Menu Gaveta Mobile com Todos os 8 Capítulos da Landing Page */}
       {mobileMenuOpen && (
-        <div className="xl:hidden bg-[#071923]/98 border-b border-[#A7A29A]/20 px-6 py-6 transition-all shadow-2xl">
+        <div className="lg:hidden bg-[#071923]/98 border-b border-[#A7A29A]/20 px-6 py-6 transition-all shadow-2xl">
           <nav className="flex flex-col gap-4 text-sm uppercase tracking-[0.2em] font-medium text-[#F0E9DC]/85">
             {navLinks.map((link) => (
               <a
@@ -158,17 +157,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="text-[#C49A45]">{isAudioActive ? 'Ativada' : 'Desativada'}</span>
               </button>
             )}
-            <div className="pt-3">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenDossier();
-                }}
-                className="w-full py-3.5 text-center text-xs font-semibold tracking-[0.2em] uppercase text-[#050708] bg-[#C49A45] hover:bg-[#DFC07D] transition-colors cursor-pointer"
-              >
-                Solicitar Informações
-              </button>
-            </div>
           </nav>
         </div>
       )}
