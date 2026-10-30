@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import parisPanoramicImg from '../assets/images/paris_seine_eiffel_1792020267474.jpg';
 import parisStreetImg from '../assets/images/paris_historic_dusk_1792019500631.jpg';
+import versaillesFacadeImg from '../assets/images/chateau_versailles_facade_cour_royale.jpg';
+import versaillesMirrorsImg from '../assets/images/versailles_galerie_des_glaces.jpg';
 import chartresFacadeImg from '../assets/images/chartres_cathedral_golden_1792019499361.jpg';
 import chartresRoseImg from '../assets/images/chartres_rose_window_1792020267869.jpg';
 import lyonStreetImg from '../assets/images/vieux_lyon_historic_1792020268721.jpg';
@@ -8,93 +10,190 @@ import lyonRiverImg from '../assets/images/hero_lyon_dusk_1792019498545.jpg';
 
 export const CitiesSection: React.FC = () => {
   const [parisView, setParisView] = useState<'panoramic' | 'street'>('panoramic');
+  const [versaillesView, setVersaillesView] = useState<'facade' | 'mirrors'>('facade');
   const [chartresView, setChartresView] = useState<'facade' | 'stained_glass'>('facade');
   const [lyonView, setLyonView] = useState<'streets' | 'saone'>('streets');
 
   return (
     <div id="percurso" className="relative bg-[#050708] text-[#F0E9DC]">
       {/* ============================================================== */}
-      {/* 06. PARIS — A CIDADE DAS LUZES */}
+      {/* 06. PARIS & VERSALHES — ETAPA I */}
       {/* ============================================================== */}
-      <section className="relative min-h-[100vh] py-28 md:py-36 overflow-hidden border-t border-[#A7A29A]/15">
-        {/* Full atmospheric panoramic backdrop */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src={parisView === 'panoramic' ? parisPanoramicImg : parisStreetImg}
-            alt="Fotografia panorâmica de Paris às margens do Sena com luz natural do entardecer"
-            className="w-full h-full object-cover object-center transition-all duration-1000 ease-in-out filter brightness-[0.72] contrast-[1.05]"
-            loading="lazy"
-            referrerPolicy="no-referrer"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050708] via-[#050708]/60 to-[#050708]/70" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#050708]/90 via-[#050708]/40 to-transparent" />
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-between min-h-[70vh]">
-          <div className="max-w-3xl space-y-6">
-            <div className="flex items-center gap-4 text-xs uppercase tracking-[0.35em] text-[#C49A45] font-medium">
-              <span>Etapa I</span>
-              <span aria-hidden="true" className="text-[#A7A29A]/50">·</span>
-              <span>A Cidade das Luzes</span>
-            </div>
-
-            <h2 className="font-serif text-5xl sm:text-7xl md:text-8xl font-light text-[#F0E9DC] tracking-tight leading-none">
-              Paris
-            </h2>
-
-            <p className="font-serif text-xl sm:text-2xl text-[#C49A45] font-light italic leading-snug">
-              O ambiente intelectual da França do século XVIII.
-            </p>
-
-            <p className="text-base sm:text-lg text-[#F0E9DC]/85 font-light leading-relaxed max-w-2xl pt-2">
-              Entre bibliotecas, instituições históricas e monumentos, Paris permite investigar o desenvolvimento da Maçonaria francesa, o Iluminismo e o ambiente cultural no qual diferentes sistemas maçônicos se desenvolveram.
-            </p>
-
-            {/* Seamless perspective selector embedded naturally into documentary */}
-            <div className="pt-4 flex items-center gap-6 text-xs uppercase tracking-[0.2em]">
-              <span className="text-[#A7A29A]/60 text-[10px]">Perspectiva Documental:</span>
-              <button
-                onClick={() => setParisView('panoramic')}
-                className={`py-1 transition-colors border-b ${
-                  parisView === 'panoramic'
-                    ? 'border-[#C49A45] text-[#F0E9DC]'
-                    : 'border-transparent text-[#A7A29A] hover:text-[#F0E9DC]'
-                }`}
-              >
-                O Sena & Panorama Urbano
-              </button>
-              <button
-                onClick={() => setParisView('street')}
-                className={`py-1 transition-colors border-b ${
-                  parisView === 'street'
-                    ? 'border-[#C49A45] text-[#F0E9DC]'
-                    : 'border-transparent text-[#A7A29A] hover:text-[#F0E9DC]'
-                }`}
-              >
-                Quartier Latin & Panthéon
-              </button>
-            </div>
+      <section className="relative border-t border-[#A7A29A]/15">
+        {/* PARTE 1: PARIS — A CIDADE DAS LUZES */}
+        <div className="relative min-h-[100vh] py-28 md:py-36 overflow-hidden">
+          {/* Full atmospheric panoramic backdrop */}
+          <div className="absolute inset-0 z-0">
+            <img
+              src={parisView === 'panoramic' ? parisPanoramicImg : parisStreetImg}
+              alt="Fotografia panorâmica de Paris às margens do Sena com luz natural do entardecer"
+              className="w-full h-full object-cover object-center transition-all duration-1000 ease-in-out filter brightness-[0.72] contrast-[1.05]"
+              loading="lazy"
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050708] via-[#050708]/60 to-[#050708]/70" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#050708]/90 via-[#050708]/40 to-transparent" />
           </div>
 
-          {/* Integrated Locais de Interesse without boxes or cards */}
-          <div className="pt-12 border-t border-[#A7A29A]/15 mt-12">
-            <div className="text-[11px] uppercase tracking-[0.25em] text-[#A7A29A] mb-3">
-              Locais de Investigação Histórica
+          <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-between min-h-[70vh]">
+            <div className="max-w-3xl space-y-6">
+              <div className="flex items-center gap-4 text-xs uppercase tracking-[0.35em] text-[#C49A45] font-medium">
+                <span>Etapa I</span>
+                <span aria-hidden="true" className="text-[#A7A29A]/50">·</span>
+                <span>A Cidade das Luzes</span>
+              </div>
+
+              <h2 className="font-serif text-5xl sm:text-7xl md:text-8xl font-light text-[#F0E9DC] tracking-tight leading-none">
+                Paris
+              </h2>
+
+              <p className="font-serif text-xl sm:text-2xl text-[#C49A45] font-light italic leading-snug">
+                O ambiente intelectual da França do século XVIII.
+              </p>
+
+              <p className="text-base sm:text-lg text-[#F0E9DC]/85 font-light leading-relaxed max-w-2xl pt-2">
+                Entre bibliotecas, instituições históricas e monumentos, Paris permite investigar o desenvolvimento da Maçonaria francesa, o Iluminismo e o ambiente cultural no qual diferentes sistemas maçônicos se desenvolveram.
+              </p>
+
+              {/* Seamless perspective selector embedded naturally into documentary */}
+              <div className="pt-4 flex items-center gap-6 text-xs uppercase tracking-[0.2em]">
+                <span className="text-[#A7A29A]/60 text-[10px]">Perspectiva Documental:</span>
+                <button
+                  onClick={() => setParisView('panoramic')}
+                  className={`py-1 transition-colors border-b ${
+                    parisView === 'panoramic'
+                      ? 'border-[#C49A45] text-[#F0E9DC]'
+                      : 'border-transparent text-[#A7A29A] hover:text-[#F0E9DC]'
+                  }`}
+                >
+                  O Sena & Panorama Urbano
+                </button>
+                <button
+                  onClick={() => setParisView('street')}
+                  className={`py-1 transition-colors border-b ${
+                    parisView === 'street'
+                      ? 'border-[#C49A45] text-[#F0E9DC]'
+                      : 'border-transparent text-[#A7A29A] hover:text-[#F0E9DC]'
+                  }`}
+                >
+                  Quartier Latin & Panthéon
+                </button>
+              </div>
             </div>
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm sm:text-base text-[#F0E9DC]/90 font-serif">
-              <span>Musée de la Franc-Maçonnerie</span>
-              <span aria-hidden="true" className="text-[#C49A45]">·</span>
-              <span>Rue Cadet</span>
-              <span aria-hidden="true" className="text-[#C49A45]">·</span>
-              <span>Bibliothèque nationale de France</span>
-              <span aria-hidden="true" className="text-[#C49A45]">·</span>
-              <span>Panthéon</span>
-              <span aria-hidden="true" className="text-[#C49A45]">·</span>
-              <span>Quartier Latin</span>
+
+            {/* Integrated Locais de Interesse without boxes or cards */}
+            <div className="pt-12 border-t border-[#A7A29A]/15 mt-12">
+              <div className="text-[11px] uppercase tracking-[0.25em] text-[#A7A29A] mb-3">
+                Locais de Investigação Histórica
+              </div>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm sm:text-base text-[#F0E9DC]/90 font-serif">
+                <span>Musée de la Franc-Maçonnerie</span>
+                <span aria-hidden="true" className="text-[#C49A45]">·</span>
+                <span>Rue Cadet</span>
+                <span aria-hidden="true" className="text-[#C49A45]">·</span>
+                <span>Bibliothèque nationale de France</span>
+                <span aria-hidden="true" className="text-[#C49A45]">·</span>
+                <span>Panthéon</span>
+                <span aria-hidden="true" className="text-[#C49A45]">·</span>
+                <span>Quartier Latin</span>
+                <span aria-hidden="true" className="text-[#C49A45]">·</span>
+                <a
+                  href="#versalhes"
+                  className="text-[#C49A45] hover:underline underline-offset-4 decoration-[#C49A45]/60 transition-all cursor-pointer"
+                >
+                  Château de Versailles ↓
+                </a>
+              </div>
+              <p className="text-[11px] text-[#A7A29A]/70 italic mt-3 font-sans">
+                * A visita a instituições, arquivos e espaços especializados será confirmada previamente. Acesso sujeito às autorizações oficiais.
+              </p>
             </div>
-            <p className="text-[11px] text-[#A7A29A]/70 italic mt-3 font-sans">
-              * A visita a instituições, arquivos e espaços especializados será confirmada previamente. Acesso sujeito às autorizações oficiais.
-            </p>
+          </div>
+        </div>
+
+        {/* PARTE 2: VERSALHES — O ESPLENDOR DA MONARQUIA FRANCESA */}
+        <div id="versalhes" className="relative min-h-[100vh] py-28 md:py-36 overflow-hidden border-t border-[#A7A29A]/15">
+          {/* Full atmospheric Versailles backdrop */}
+          <div className="absolute inset-0 z-0">
+            <img
+              src={versaillesView === 'facade' ? versaillesFacadeImg : versaillesMirrorsImg}
+              alt="Palácio de Versalhes e Galeria dos Espelhos sob perspectiva cinematográfica e monumental"
+              className="w-full h-full object-cover object-center transition-all duration-1000 ease-in-out filter brightness-[0.70] contrast-[1.06]"
+              loading="lazy"
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050708] via-[#050708]/60 to-[#050708]/70" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#050708]/90 via-[#050708]/40 to-transparent" />
+          </div>
+
+          <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-between min-h-[70vh]">
+            <div className="max-w-3xl space-y-6">
+              <div className="flex items-center gap-4 text-xs uppercase tracking-[0.35em] text-[#C49A45] font-medium">
+                <span>Etapa I</span>
+                <span aria-hidden="true" className="text-[#A7A29A]/50">·</span>
+                <span>O Esplendor da Monarquia Francesa</span>
+              </div>
+
+              <h2 className="font-serif text-5xl sm:text-7xl md:text-8xl font-light text-[#F0E9DC] tracking-tight leading-none">
+                Versalhes
+              </h2>
+
+              <p className="font-serif text-xl sm:text-2xl text-[#C49A45] font-light italic leading-snug">
+                VERSALHES — O ESPLENDOR DA MONARQUIA FRANCESA
+              </p>
+
+              <p className="text-base sm:text-lg text-[#F0E9DC]/85 font-light leading-relaxed max-w-2xl pt-2">
+                Símbolo máximo da monarquia francesa, Versalhes permite compreender a formação política, cultural e artística da França dos séculos XVII e XVIII. Seu palácio, seus jardins monumentais e seus espaços históricos constituem um cenário essencial para compreender o contexto no qual se desenvolveram as ideias que marcaram a Europa.
+              </p>
+
+              {/* Seamless perspective selector between Palace Facade & Hall of Mirrors */}
+              <div className="pt-4 flex items-center gap-6 text-xs uppercase tracking-[0.2em]">
+                <span className="text-[#A7A29A]/60 text-[10px]">Perspectiva Documental:</span>
+                <button
+                  onClick={() => setVersaillesView('facade')}
+                  className={`py-1 transition-colors border-b ${
+                    versaillesView === 'facade'
+                      ? 'border-[#C49A45] text-[#F0E9DC]'
+                      : 'border-transparent text-[#A7A29A] hover:text-[#F0E9DC]'
+                  }`}
+                >
+                  Palácio de Versalhes (Fachada Real)
+                </button>
+                <button
+                  onClick={() => setVersaillesView('mirrors')}
+                  className={`py-1 transition-colors border-b ${
+                    versaillesView === 'mirrors'
+                      ? 'border-[#C49A45] text-[#F0E9DC]'
+                      : 'border-transparent text-[#A7A29A] hover:text-[#F0E9DC]'
+                  }`}
+                >
+                  Galeria dos Espelhos
+                </button>
+              </div>
+            </div>
+
+            {/* Integrated Locais de Interesse of Versailles */}
+            <div className="pt-12 border-t border-[#A7A29A]/15 mt-12">
+              <div className="text-[11px] uppercase tracking-[0.25em] text-[#A7A29A] mb-3">
+                Locais de Interesse Histórico & Monumental
+              </div>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm sm:text-base text-[#F0E9DC]/90 font-serif">
+                <span>Palácio de Versalhes</span>
+                <span aria-hidden="true" className="text-[#C49A45]">·</span>
+                <span>Galeria dos Espelhos</span>
+                <span aria-hidden="true" className="text-[#C49A45]">·</span>
+                <span>Jardins de Versalhes</span>
+                <span aria-hidden="true" className="text-[#C49A45]">·</span>
+                <span>Grand Trianon</span>
+                <span aria-hidden="true" className="text-[#C49A45]">·</span>
+                <span>Petit Trianon</span>
+                <span aria-hidden="true" className="text-[#C49A45]">·</span>
+                <span>Hameau de la Reine (Aldeia da Rainha)</span>
+              </div>
+              <p className="text-[11px] text-[#A7A29A]/70 italic mt-3 font-sans">
+                * Circuito integrado à etapa de Paris, explorando o patrimônio monárquico e os cenários do Antigo Regime francês.
+              </p>
+            </div>
           </div>
         </div>
       </section>
