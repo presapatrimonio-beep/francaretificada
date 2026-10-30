@@ -170,7 +170,7 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050708]/40 to-[#050708]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full pt-[320px] sm:pt-[360px] md:pt-[400px] lg:pt-[430px] pb-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 w-full pt-[220px] sm:pt-[320px] md:pt-[380px] lg:pt-[430px] pb-20">
         
         {/* 01. EDITORIAL HEADER — Art Publication Standard */}
         <header className="pb-10 md:pb-14 border-b border-[#A7A29A]/15">
@@ -415,12 +415,12 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
               </div>
 
               {/* Bottom Quick Bar */}
-              <div className="mt-3 pt-3 border-t border-[#A7A29A]/15 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-                <div className="flex items-center gap-2">
+              <div className="mt-3 pt-3 border-t border-[#A7A29A]/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+                <div className="flex flex-wrap items-center gap-2">
                   <span className="text-[10px] uppercase tracking-[0.2em] text-[#C49A45] font-semibold">
                     Etapas do Itinerário:
                   </span>
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex flex-wrap items-center gap-1.5">
                     {CITY_KEYS.map((k) => {
                       const c = CITIES[k];
                       const isActive = selectedCity === k;
@@ -631,21 +631,21 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className="flex items-center justify-between border-b border-[#A7A29A]/20 px-4 md:px-6 py-3 bg-[#050708]/90 shrink-0">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 border-b border-[#A7A29A]/20 px-3 sm:px-6 py-2.5 sm:py-3 bg-[#050708]/90 shrink-0">
               <div className="flex items-center gap-3">
-                <Compass className="w-4 h-4 text-[#C49A45]" />
+                <Compass className="w-4 h-4 text-[#C49A45] shrink-0" />
                 <div>
-                  <h3 className="font-serif text-base sm:text-lg text-[#F0E9DC] font-normal leading-tight">
+                  <h3 className="font-serif text-sm sm:text-lg text-[#F0E9DC] font-normal leading-tight">
                     Atlas da França Retificada <span className="text-[#C49A45] italic font-normal">· Projeção Histórica</span>
                   </h3>
-                  <p className="text-[10px] text-[#A7A29A] tracking-wider uppercase">
+                  <p className="text-[9px] sm:text-[10px] text-[#A7A29A] tracking-wider uppercase">
                     Expedição 2027 · Nas pegadas de Jean-Baptiste Willermoz
                   </p>
                 </div>
               </div>
 
               {/* Controls */}
-              <div className="flex items-center gap-2 sm:gap-3">
+              <div className="flex items-center justify-between w-full sm:w-auto gap-2 sm:gap-3">
                 <div className="flex items-center gap-1 bg-[#050708] border border-[#C49A45]/30 px-2 py-1">
                   <button
                     type="button"
@@ -704,11 +704,13 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
               </div>
             </div>
 
-            {/* Modal Footer with Quick Navigation to the 3 Cities */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-4 md:px-6 py-2.5 bg-[#050708]/90 border-t border-[#A7A29A]/15 text-xs shrink-0">
-              <div className="flex items-center gap-2 text-[11px] text-[#A7A29A]">
-                <MapPin className="w-3.5 h-3.5 text-[#C49A45]" />
-                <span>Explorar Fotografias das Cidades:</span>
+            {/* Modal Footer with Quick Navigation to the 4 Cities */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 px-3 sm:px-6 py-2 sm:py-2.5 bg-[#050708]/90 border-t border-[#A7A29A]/15 text-xs shrink-0">
+              <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-[#A7A29A]">
+                <span className="flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-[#C49A45]" />
+                  <span className="hidden sm:inline">Explorar Fotografias:</span>
+                </span>
                 {CITY_KEYS.map((k) => (
                   <button
                     key={k}
@@ -718,7 +720,7 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
                       setIsMapModalOpen(false);
                       setIsPhotoModalOpen(true);
                     }}
-                    className="px-2.5 py-0.5 border border-[#C49A45]/40 hover:border-[#C49A45] text-[#DFC07D] hover:bg-[#C49A45]/20 text-[10px] uppercase tracking-wider transition-colors cursor-pointer"
+                    className="px-2 sm:px-2.5 py-0.5 border border-[#C49A45]/40 hover:border-[#C49A45] text-[#DFC07D] hover:bg-[#C49A45]/20 text-[9px] sm:text-[10px] uppercase tracking-wider transition-colors cursor-pointer"
                   >
                     {CITIES[k].name}
                   </button>
@@ -817,15 +819,15 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
               <p className="text-xs text-[#F0E9DC]/80 font-light leading-relaxed">
                 {city.imageCaption}
               </p>
-              <div className="pt-2 flex items-center justify-between border-t border-[#A7A29A]/15 text-[11px] text-[#A7A29A]">
-                <span>Navegue com as setas do teclado (← / →) ou ESC para fechar</span>
-                <div className="flex items-center gap-1.5">
+              <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-t border-[#A7A29A]/15 text-[11px] text-[#A7A29A]">
+                <span className="hidden sm:inline">Navegue com as setas do teclado (← / →) ou ESC para fechar</span>
+                <div className="flex flex-wrap items-center gap-1.5 w-full sm:w-auto justify-between sm:justify-end">
                   {CITY_KEYS.map((k) => (
                     <button
                       key={k}
                       type="button"
                       onClick={() => setSelectedCity(k)}
-                      className={`px-2.5 py-0.5 text-[10px] uppercase tracking-wider border transition-colors cursor-pointer ${
+                      className={`px-2 sm:px-2.5 py-0.5 text-[10px] uppercase tracking-wider border transition-colors cursor-pointer ${
                         selectedCity === k
                           ? 'border-[#C49A45] bg-[#C49A45]/20 text-[#DFC07D]'
                           : 'border-[#A7A29A]/20 text-[#A7A29A] hover:text-[#F0E9DC]'

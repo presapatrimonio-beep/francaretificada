@@ -51,7 +51,9 @@ export const Navbar: React.FC<NavbarProps> = ({
     setMobileMenuOpen(false);
     const target = document.querySelector(href);
     if (target) {
-      const headerOffset = 300;
+      const isMobile = window.innerWidth < 768;
+      const isTablet = window.innerWidth < 1024;
+      const headerOffset = isMobile ? 180 : (isTablet ? 240 : 300);
       const elementPosition = target.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
       window.scrollTo({
@@ -68,12 +70,12 @@ export const Navbar: React.FC<NavbarProps> = ({
       } bg-[#050708]/95 backdrop-blur-md border-b border-[#A7A29A]/20 shadow-2xl`}
     >
       {/* 01. NÍVEL SUPERIOR: BRASÃO E IDENTIDADE PERFEITAMENTE CENTRALIZADOS NO EIXO VERTICAL */}
-      <div className="relative max-w-[1700px] mx-auto px-6 md:px-10 flex flex-col items-center justify-center pt-3 sm:pt-4 pb-2.5 sm:pb-3">
+      <div className="relative max-w-[1700px] mx-auto px-4 sm:px-6 md:px-10 flex flex-col items-center justify-center pt-3 sm:pt-4 pb-2.5 sm:pb-3">
         {/* Identidade Nobre Centralizada: Brasão Acima + Título Abaixo */}
         <a
           href="#atlas"
           onClick={(e) => handleLinkClick(e, '#atlas')}
-          className="group flex flex-col items-center justify-center text-center cursor-pointer"
+          className="group flex flex-col items-center justify-center text-center cursor-pointer max-w-[85vw]"
           title="Atlas da França Retificada 2027"
         >
           {/* Brasão Oficial do Grande Priorado no Centro Exato */}
@@ -81,28 +83,28 @@ export const Navbar: React.FC<NavbarProps> = ({
             src="/assets/aistudio/priorado_eddc943e.png"
             alt="Brasão Oficial do Grande Priorado do Rito Escocês Retificado do Brasil"
             className={`${
-              scrolled ? 'h-24 sm:h-28 md:h-32' : 'h-28 sm:h-36 md:h-44 lg:h-48'
-            } w-auto object-contain mx-auto drop-shadow-[0_6px_28px_rgba(0,0,0,0.95)] group-hover:scale-105 transition-all duration-300 mb-2 sm:mb-2.5`}
+              scrolled ? 'h-16 sm:h-28 md:h-32' : 'h-20 sm:h-36 md:h-44 lg:h-48'
+            } w-auto object-contain mx-auto drop-shadow-[0_6px_28px_rgba(0,0,0,0.95)] group-hover:scale-105 transition-all duration-300 mb-1.5 sm:mb-2.5`}
           />
 
           {/* Titulação Centralizada Abaixo do Brasão */}
           <div className="flex flex-col items-center text-center">
-            <span className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-[0.24em] text-[#F0E9DC] group-hover:text-[#DFC07D] transition-colors uppercase leading-tight">
+            <span className="font-serif text-xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-[0.16em] sm:tracking-[0.24em] text-[#F0E9DC] group-hover:text-[#DFC07D] transition-colors uppercase leading-tight">
               França Retificada
             </span>
-            <span className="text-xs sm:text-sm md:text-base uppercase tracking-[0.38em] text-[#C49A45] font-sans font-medium mt-1 sm:mt-1.5">
+            <span className="text-[10px] sm:text-sm md:text-base uppercase tracking-[0.28em] sm:tracking-[0.38em] text-[#C49A45] font-sans font-medium mt-1 sm:mt-1.5">
               Expedição 2027
             </span>
           </div>
         </a>
 
         {/* Controles Laterais (Trilha Sonora & Menu Mobile) no Canto Superior Direito */}
-        <div className="absolute right-4 sm:right-6 md:right-10 top-3 sm:top-5 flex items-center gap-3">
+        <div className="absolute right-3 sm:right-6 md:right-10 top-3 sm:top-5 flex items-center gap-2 sm:gap-3">
           {/* Trilha Sonora cinematográfica */}
           {onToggleAudio && (
             <button
               onClick={onToggleAudio}
-              className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#A7A29A] hover:text-[#C49A45] transition-colors py-1.5 px-3 border border-white/10 hover:border-[#C49A45]/40 bg-[#050708]/80 backdrop-blur-sm cursor-pointer shadow-sm"
+              className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#A7A29A] hover:text-[#C49A45] transition-colors py-1.5 px-2.5 sm:px-3 border border-white/10 hover:border-[#C49A45]/40 bg-[#050708]/80 backdrop-blur-sm cursor-pointer shadow-sm"
               title={isAudioActive ? 'Pausar trilha sonora cinematográfica' : 'Ouvir trilha sonora cinematográfica (Piano & Orquestra)'}
               aria-label="Controle de trilha sonora cinematográfica"
             >
@@ -140,7 +142,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Menu Gaveta Mobile com Todos os 8 Capítulos da Landing Page */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#071923]/98 border-b border-[#A7A29A]/20 px-6 py-6 transition-all shadow-2xl">
+        <div className="lg:hidden bg-[#071923]/98 border-b border-[#A7A29A]/20 px-6 py-6 transition-all shadow-2xl max-h-[calc(100dvh-130px)] overflow-y-auto">
           <nav className="flex flex-col gap-4 text-sm uppercase tracking-[0.2em] font-medium text-[#F0E9DC]/85">
             {navLinks.map((link) => (
               <a

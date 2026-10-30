@@ -40,7 +40,7 @@ export const InvestmentSection: React.FC<InvestmentSectionProps> = ({
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#050708] to-transparent" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
         
         {/* 1. TÍTULO DA SEÇÃO */}
         <header className="max-w-4xl space-y-4 mb-16 md:mb-20">
@@ -60,7 +60,7 @@ export const InvestmentSection: React.FC<InvestmentSectionProps> = ({
 
         {/* 2. DESTAQUE FINANCEIRO MONUMENTAL */}
         <div className="relative mb-16 md:mb-20">
-          <div className="relative bg-[#0d070b]/90 border border-[#C49A45]/45 p-8 sm:p-12 md:p-16 shadow-[0_25px_80px_rgba(0,0,0,0.85)]">
+          <div className="relative bg-[#0d070b]/90 border border-[#C49A45]/45 p-5 sm:p-12 md:p-16 shadow-[0_25px_80px_rgba(0,0,0,0.85)]">
             
             {/* Top gold corner ornamentation accents */}
             <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#DFC07D]" />
@@ -76,7 +76,7 @@ export const InvestmentSection: React.FC<InvestmentSectionProps> = ({
                 </div>
 
                 {/* Monumental Price Display */}
-                <div className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-[#DFC07D] font-normal tracking-tight leading-none drop-shadow-sm">
+                <div className="font-serif text-4xl sm:text-7xl md:text-8xl lg:text-9xl text-[#DFC07D] font-normal tracking-tight leading-none drop-shadow-sm">
                   R$ 20 Mil
                 </div>
 
@@ -225,12 +225,12 @@ export const InvestmentSection: React.FC<InvestmentSectionProps> = ({
                 <button
                   type="button"
                   onClick={handleQuoteClick}
-                  className="w-full py-4 px-6 bg-[#C49A45] hover:bg-[#DFC07D] text-[#050708] font-sans text-xs tracking-[0.2em] font-bold uppercase transition-all duration-300 shadow-xl flex items-center justify-center gap-3 cursor-pointer group-hover:scale-[1.01]"
+                  className="w-full py-3.5 sm:py-4 px-4 sm:px-6 bg-[#C49A45] hover:bg-[#DFC07D] text-[#050708] font-sans text-[11px] sm:text-xs tracking-wider sm:tracking-[0.2em] font-bold uppercase transition-all duration-300 shadow-xl flex items-center justify-center gap-2 sm:gap-3 cursor-pointer group-hover:scale-[1.01]"
                   aria-label="Solicitar Cotação e Contratar a Expedição"
                 >
-                  <FileText className="w-4 h-4" />
+                  <FileText className="w-4 h-4 shrink-0" />
                   <span>SOLICITAR COTAÇÃO E CONTRATAÇÃO</span>
-                  <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 shrink-0 transform group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
             </div>
@@ -296,12 +296,12 @@ export const InvestmentSection: React.FC<InvestmentSectionProps> = ({
                 <button
                   type="button"
                   onClick={handleInterestClick}
-                  className="w-full py-4 px-8 border-2 border-[#C49A45] hover:bg-[#C49A45] text-[#DFC07D] hover:text-[#050708] font-sans text-xs tracking-[0.22em] font-semibold uppercase transition-all duration-300 shadow-md flex items-center justify-center gap-3 cursor-pointer group-hover:scale-[1.01]"
+                  className="w-full py-3.5 sm:py-4 px-4 sm:px-8 border-2 border-[#C49A45] hover:bg-[#C49A45] text-[#DFC07D] hover:text-[#050708] font-sans text-[11px] sm:text-xs tracking-wider sm:tracking-[0.22em] font-semibold uppercase transition-all duration-300 shadow-md flex items-center justify-center gap-2 sm:gap-3 cursor-pointer group-hover:scale-[1.01]"
                   aria-label="Registrar Interesse na Excursão França 2027"
                 >
-                  <Sparkles className="w-4 h-4" />
+                  <Sparkles className="w-4 h-4 shrink-0" />
                   <span>TENHO INTERESSE NA EXCURSÃO</span>
-                  <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 shrink-0 transform group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
             </div>

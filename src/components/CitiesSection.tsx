@@ -35,7 +35,7 @@ export const CitiesSection: React.FC = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-[#050708]/90 via-[#050708]/40 to-transparent" />
           </div>
 
-          <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-between min-h-[70vh]">
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 flex flex-col justify-between min-h-[70vh]">
             <div className="max-w-3xl space-y-6">
               <div className="flex items-center gap-4 text-xs uppercase tracking-[0.35em] text-[#C49A45] font-medium">
                 <span>Etapa I</span>
@@ -56,7 +56,7 @@ export const CitiesSection: React.FC = () => {
               </p>
 
               {/* Seamless perspective selector embedded naturally into documentary */}
-              <div className="pt-4 flex items-center gap-6 text-xs uppercase tracking-[0.2em]">
+              <div className="pt-4 flex flex-wrap items-center gap-x-4 sm:gap-x-6 gap-y-2 text-xs uppercase tracking-[0.16em] sm:tracking-[0.2em]">
                 <span className="text-[#A7A29A]/60 text-[10px]">Perspectiva Documental:</span>
                 <button
                   onClick={() => setParisView('panoramic')}
@@ -126,7 +126,7 @@ export const CitiesSection: React.FC = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-[#050708]/90 via-[#050708]/40 to-transparent" />
           </div>
 
-          <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-between min-h-[70vh]">
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 flex flex-col justify-between min-h-[70vh]">
             <div className="max-w-3xl space-y-6">
               <div className="flex items-center gap-4 text-xs uppercase tracking-[0.35em] text-[#C49A45] font-medium">
                 <span>Etapa I</span>
@@ -147,7 +147,7 @@ export const CitiesSection: React.FC = () => {
               </p>
 
               {/* Seamless perspective selector between Palace Facade & Hall of Mirrors */}
-              <div className="pt-4 flex items-center gap-6 text-xs uppercase tracking-[0.2em]">
+              <div className="pt-4 flex flex-wrap items-center gap-x-4 sm:gap-x-6 gap-y-2 text-xs uppercase tracking-[0.16em] sm:tracking-[0.2em]">
                 <span className="text-[#A7A29A]/60 text-[10px]">Perspectiva Documental:</span>
                 <button
                   onClick={() => setVersaillesView('facade')}
@@ -215,7 +215,7 @@ export const CitiesSection: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-[#050708]/90 via-[#050708]/50 to-transparent" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-between min-h-[70vh]">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 flex flex-col justify-between min-h-[70vh]">
           <div className="max-w-3xl space-y-6">
             <div className="flex items-center gap-4 text-xs uppercase tracking-[0.35em] text-[#C49A45] font-medium">
               <span>Etapa II</span>
@@ -240,7 +240,7 @@ export const CitiesSection: React.FC = () => {
             </p>
 
             {/* View toggle */}
-            <div className="pt-4 flex items-center gap-6 text-xs uppercase tracking-[0.2em]">
+            <div className="pt-4 flex flex-wrap items-center gap-x-4 sm:gap-x-6 gap-y-2 text-xs uppercase tracking-[0.16em] sm:tracking-[0.2em]">
               <span className="text-[#A7A29A]/60 text-[10px]">Cenário:</span>
               <button
                 onClick={() => setChartresView('facade')}
@@ -289,7 +289,7 @@ export const CitiesSection: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-[#050708]/90 via-[#050708]/50 to-transparent" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-between min-h-[70vh]">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 flex flex-col justify-between min-h-[70vh]">
           <div className="max-w-3xl space-y-6">
             <div className="flex items-center gap-4 text-xs uppercase tracking-[0.35em] text-[#C49A45] font-medium">
               <span>Etapa III · O Centro da Narrativa</span>
@@ -314,7 +314,7 @@ export const CitiesSection: React.FC = () => {
             </p>
 
             {/* View toggle */}
-            <div className="pt-4 flex items-center gap-6 text-xs uppercase tracking-[0.2em]">
+            <div className="pt-4 flex flex-wrap items-center gap-x-4 sm:gap-x-6 gap-y-2 text-xs uppercase tracking-[0.16em] sm:tracking-[0.2em]">
               <span className="text-[#A7A29A]/60 text-[10px]">Perspectiva:</span>
               <button
                 onClick={() => setLyonView('streets')}

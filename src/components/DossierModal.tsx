@@ -128,11 +128,11 @@ export const DossierModal: React.FC<DossierModalProps> = ({
       />
 
       {/* Modal Container */}
-      <div className="relative w-full max-w-2xl bg-[#080507] border border-[#C49A45]/40 shadow-2xl p-6 sm:p-10 z-10 max-h-[92vh] overflow-y-auto my-auto text-[#F0E9DC]">
+      <div className="relative w-full max-w-2xl bg-[#080507] border border-[#C49A45]/40 shadow-2xl p-5 sm:p-10 z-10 max-h-[92vh] overflow-y-auto my-auto text-[#F0E9DC]">
         {/* Close Button */}
         <button
           onClick={handleResetAndClose}
-          className="absolute top-6 right-6 text-[#A7A29A] hover:text-[#C49A45] transition-colors p-1 cursor-pointer"
+          className="absolute top-4 right-4 sm:top-6 sm:right-6 text-[#A7A29A] hover:text-[#C49A45] transition-colors p-2 cursor-pointer"
           aria-label="Fechar janela"
         >
           <X className="w-5 h-5" />
@@ -374,7 +374,7 @@ export const DossierModal: React.FC<DossierModalProps> = ({
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-8 py-3.5 bg-[#C49A45] hover:bg-[#DFC07D] text-[#050708] font-sans text-xs tracking-[0.2em] font-bold uppercase transition-all duration-300 disabled:opacity-50 cursor-pointer shadow-lg"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3.5 bg-[#C49A45] hover:bg-[#DFC07D] text-[#050708] font-sans text-xs tracking-[0.16em] sm:tracking-[0.2em] font-bold uppercase transition-all duration-300 disabled:opacity-50 cursor-pointer shadow-lg text-center"
                 >
                   {isSubmitting
                     ? 'Registrando...'

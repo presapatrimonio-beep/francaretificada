@@ -49,7 +49,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onDiscover }) => {
       <div className="h-20" />
 
       {/* Monumental Documentary Title Overlay */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full my-auto">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 w-full my-auto">
         <div className="max-w-4xl">
           {/* Identification Kicker */}
           <div
@@ -68,10 +68,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onDiscover }) => {
               stage >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
-            <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-[0.12em] text-[#F0E9DC]/85 uppercase">
+            <span className="block text-xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-[0.12em] text-[#F0E9DC]/85 uppercase">
               Nas pegadas de
             </span>
-            <span className="block text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-[-0.02em] text-[#F0E9DC] uppercase mt-2 drop-shadow-2xl">
+            <span className="block text-3xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-[-0.02em] text-[#F0E9DC] uppercase mt-2 drop-shadow-2xl break-words">
               Jean-Baptiste Willermoz
             </span>
           </h1>

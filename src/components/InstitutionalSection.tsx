@@ -19,7 +19,7 @@ export const InstitutionalSection: React.FC = () => {
         id="apoio-institucional" 
         className="relative scroll-mt-28 pt-24 md:pt-32 pb-20 md:pb-28 border-t border-[#A7A29A]/15"
       >
-        <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
           
           {/* Header editorial */}
           <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 md:mb-20">
@@ -44,7 +44,7 @@ export const InstitutionalSection: React.FC = () => {
             
             {/* Lado Esquerdo: Brasão Oficial Destacado em Proporções Originais */}
             <div className="lg:col-span-5 flex flex-col items-center justify-center">
-              <div className="relative group p-6 sm:p-8 bg-gradient-to-b from-[#0d131a]/80 via-[#070b10] to-[#040608] border border-[#C49A45]/40 shadow-[0_20px_60px_rgba(0,0,0,0.85)] max-w-md w-full flex flex-col items-center text-center">
+              <div className="relative group p-5 sm:p-8 bg-gradient-to-b from-[#0d131a]/80 via-[#070b10] to-[#040608] border border-[#C49A45]/40 shadow-[0_20px_60px_rgba(0,0,0,0.85)] max-w-md w-full flex flex-col items-center text-center">
                 
                 {/* Linha decorativa no topo */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-[2px] bg-gradient-to-r from-transparent via-[#DFC07D] to-transparent" />
@@ -54,7 +54,7 @@ export const InstitutionalSection: React.FC = () => {
                   <img
                     src="/assets/aistudio/priorado_eddc943e.png"
                     alt="Brasão Oficial do Grande Priorado do Rito Escocês Retificado do Brasil"
-                    className="h-64 sm:h-72 md:h-80 lg:h-96 w-auto object-contain drop-shadow-[0_12px_35px_rgba(0,0,0,0.95)] transform group-hover:scale-[1.02] transition-transform duration-500"
+                    className="h-48 sm:h-72 md:h-80 lg:h-96 w-auto object-contain drop-shadow-[0_12px_35px_rgba(0,0,0,0.95)] transform group-hover:scale-[1.02] transition-transform duration-500"
                   />
                 </div>
 
@@ -143,7 +143,7 @@ export const InstitutionalSection: React.FC = () => {
         id="operacao-turistica" 
         className="relative scroll-mt-28 pt-20 md:pt-28 pb-28 md:pb-36 border-t border-[#A7A29A]/15 bg-gradient-to-b from-[#050708] via-[#070e14] to-[#050708]"
       >
-        <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
           
           {/* Header editorial */}
           <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 md:mb-20">

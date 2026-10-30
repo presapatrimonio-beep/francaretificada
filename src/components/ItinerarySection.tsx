@@ -319,7 +319,7 @@ export const ItinerarySection: React.FC = () => {
 
   return (
     <section id="roteiro" className="relative bg-[#050708] text-[#F0E9DC] py-28 md:py-36 overflow-hidden border-t border-[#A7A29A]/15">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         {/* ============================================================== */}
         {/* 01. CABEÇALHO DO NOVO ITINERÁRIO */}
         {/* ============================================================== */}
@@ -349,7 +349,7 @@ export const ItinerarySection: React.FC = () => {
         {/* ============================================================== */}
         {/* 02. TIMELINE VERTICAL CONTÍNUA E EDITORIAL (10 DIAS) */}
         {/* ============================================================== */}
-        <div className="relative border-l border-[#A7A29A]/20 ml-3 sm:ml-6 md:ml-8 pl-8 sm:pl-12 md:pl-16 space-y-20 md:space-y-28">
+        <div className="relative border-l border-[#A7A29A]/20 ml-2.5 sm:ml-6 md:ml-8 pl-6 sm:pl-12 md:pl-16 space-y-20 md:space-y-28">
           {itinerary.map((item) => {
             const isHovered = activeDay === item.dayNumber;
 
@@ -363,7 +363,7 @@ export const ItinerarySection: React.FC = () => {
               >
                 {/* Timeline node */}
                 <div
-                  className={`absolute -left-[41px] sm:-left-[57px] md:-left-[73px] top-2 w-4 h-4 rounded-full border-2 transition-all duration-500 ${
+                  className={`absolute -left-[33px] sm:-left-[57px] md:-left-[73px] top-2 w-4 h-4 rounded-full border-2 transition-all duration-500 ${
                     isHovered
                       ? 'border-[#C49A45] bg-[#C49A45] scale-125 shadow-[0_0_15px_rgba(196,154,69,0.5)]'
                       : 'border-[#A7A29A]/50 bg-[#050708] group-hover:border-[#C49A45]'
@@ -414,12 +414,12 @@ export const ItinerarySection: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#050708] via-transparent to-black/30 pointer-events-none" />
                     
                     {/* Floating map quick link over photo */}
-                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10">
+                    <div className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 z-10">
                       <a
                         href={item.mapUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-3 py-1.5 text-[11px] uppercase tracking-widest text-[#F0E9DC] bg-[#050708]/80 hover:bg-[#050708] border border-[#C49A45]/40 hover:border-[#C49A45] backdrop-blur-md transition-all shadow-lg"
+                        className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-[11px] uppercase tracking-wider sm:tracking-widest text-[#F0E9DC] bg-[#050708]/85 hover:bg-[#050708] border border-[#C49A45]/40 hover:border-[#C49A45] backdrop-blur-md transition-all shadow-lg"
                         title={`Abrir localização de ${item.mapLabel} no Google Maps em nova aba`}
                       >
                         <MapPin className="w-3 h-3 text-[#C49A45]" aria-hidden="true" />
