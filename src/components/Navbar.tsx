@@ -51,7 +51,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     setMobileMenuOpen(false);
     const target = document.querySelector(href);
     if (target) {
-      const headerOffset = 90;
+      const headerOffset = 300;
       const elementPosition = target.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
       window.scrollTo({
@@ -65,56 +65,44 @@ export const Navbar: React.FC<NavbarProps> = ({
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         hiddenNav ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'
-      } ${
-        scrolled
-          ? 'bg-[#050708]/95 backdrop-blur-md border-b border-[#A7A29A]/20 py-3.5 shadow-2xl'
-          : 'bg-gradient-to-b from-[#050708]/95 via-[#050708]/80 to-transparent backdrop-blur-sm border-b border-[#A7A29A]/10 py-4'
-      }`}
+      } bg-[#050708]/95 backdrop-blur-md border-b border-[#A7A29A]/20 shadow-2xl`}
     >
-      <div className="max-w-[1700px] mx-auto px-6 md:px-10 flex items-center justify-between gap-6">
-        {/* Identidade da Expedição com o Brasão Oficial do Priorado */}
+      {/* 01. NÍVEL SUPERIOR: BRASÃO E IDENTIDADE PERFEITAMENTE CENTRALIZADOS NO EIXO VERTICAL */}
+      <div className="relative max-w-[1700px] mx-auto px-6 md:px-10 flex flex-col items-center justify-center pt-3 sm:pt-4 pb-2.5 sm:pb-3">
+        {/* Identidade Nobre Centralizada: Brasão Acima + Título Abaixo */}
         <a
           href="#atlas"
           onClick={(e) => handleLinkClick(e, '#atlas')}
-          className="group flex items-center gap-3 shrink-0 text-decoration-none cursor-pointer"
+          className="group flex flex-col items-center justify-center text-center cursor-pointer"
           title="Atlas da França Retificada 2027"
         >
+          {/* Brasão Oficial do Grande Priorado no Centro Exato */}
           <img
             src="/assets/aistudio/priorado_eddc943e.png"
             alt="Brasão Oficial do Grande Priorado do Rito Escocês Retificado do Brasil"
-            className="h-10 md:h-12 w-auto object-contain shrink-0 drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] group-hover:scale-105 transition-transform duration-300"
+            className={`${
+              scrolled ? 'h-24 sm:h-28 md:h-32' : 'h-28 sm:h-36 md:h-44 lg:h-48'
+            } w-auto object-contain mx-auto drop-shadow-[0_6px_28px_rgba(0,0,0,0.95)] group-hover:scale-105 transition-all duration-300 mb-2 sm:mb-2.5`}
           />
-          <div className="flex flex-col justify-center">
-            <span className="font-serif text-lg md:text-xl font-normal tracking-[0.22em] text-[#F0E9DC] group-hover:text-[#C49A45] transition-colors uppercase leading-none">
+
+          {/* Titulação Centralizada Abaixo do Brasão */}
+          <div className="flex flex-col items-center text-center">
+            <span className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-[0.24em] text-[#F0E9DC] group-hover:text-[#DFC07D] transition-colors uppercase leading-tight">
               França Retificada
             </span>
-            <span className="text-[9px] uppercase tracking-[0.3em] text-[#C49A45] font-sans font-light mt-1">
+            <span className="text-xs sm:text-sm md:text-base uppercase tracking-[0.38em] text-[#C49A45] font-sans font-medium mt-1 sm:mt-1.5">
               Expedição 2027
             </span>
           </div>
         </a>
 
-        {/* Links de Navegação Editorial Completa */}
-        <nav className="hidden lg:flex items-center gap-4 xl:gap-6 2xl:gap-7 text-[11px] xl:text-xs uppercase tracking-[0.16em] xl:tracking-[0.18em] font-medium text-[#F0E9DC]/75 shrink-0">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => handleLinkClick(e, link.href)}
-              className="hover:text-[#C49A45] transition-colors relative py-1 whitespace-nowrap shrink-0 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#C49A45] hover:after:w-full after:transition-all after:duration-300"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* Ações e Controles (Sem botão de solicitar informações) */}
-        <div className="flex items-center gap-3 shrink-0">
+        {/* Controles Laterais (Trilha Sonora & Menu Mobile) no Canto Superior Direito */}
+        <div className="absolute right-4 sm:right-6 md:right-10 top-3 sm:top-5 flex items-center gap-3">
           {/* Trilha Sonora cinematográfica */}
           {onToggleAudio && (
             <button
               onClick={onToggleAudio}
-              className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#A7A29A] hover:text-[#C49A45] transition-colors py-1.5 px-2.5 border border-white/5 hover:border-[#C49A45]/30 cursor-pointer"
+              className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#A7A29A] hover:text-[#C49A45] transition-colors py-1.5 px-3 border border-white/10 hover:border-[#C49A45]/40 bg-[#050708]/80 backdrop-blur-sm cursor-pointer shadow-sm"
               title={isAudioActive ? 'Pausar trilha sonora cinematográfica' : 'Ouvir trilha sonora cinematográfica (Piano & Orquestra)'}
               aria-label="Controle de trilha sonora cinematográfica"
             >
@@ -132,6 +120,22 @@ export const Navbar: React.FC<NavbarProps> = ({
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
+      </div>
+
+      {/* 02. NÍVEL INFERIOR: MENU DE NAVEGAÇÃO CENTRALIZADO ABAIXO DO LOGO */}
+      <div className="hidden lg:block border-t border-[#A7A29A]/15 bg-black/25">
+        <nav className="max-w-[1700px] mx-auto px-6 flex items-center justify-center gap-6 xl:gap-8 2xl:gap-10 py-2.5 text-[11px] xl:text-xs uppercase tracking-[0.2em] font-medium text-[#F0E9DC]/80">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={(e) => handleLinkClick(e, link.href)}
+              className="hover:text-[#DFC07D] transition-colors relative py-1 whitespace-nowrap shrink-0 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#C49A45] hover:after:w-full after:transition-all after:duration-300"
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
       </div>
 
       {/* Menu Gaveta Mobile com Todos os 8 Capítulos da Landing Page */}

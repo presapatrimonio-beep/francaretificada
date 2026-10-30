@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { MapPin, Compass, Eye, Maximize2, X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCcw, Sparkles } from 'lucide-react';
 import parisImage from '../assets/images/paris_historic_dusk_1792019500631.jpg';
+import versaillesImage from '../assets/images/chateau_versailles_facade_cour_royale.jpg';
 import chartresImage from '../assets/images/chartres_cathedral_golden_1792019499361.jpg';
 import lyonImage from '../assets/images/hero_lyon_dusk_1792019498545.jpg';
 
@@ -8,7 +9,7 @@ interface AtlasSectionProps {
   onProceedToExperience?: () => void;
 }
 
-type CityKey = 'paris' | 'chartres' | 'lyon';
+type CityKey = 'paris' | 'versalhes' | 'chartres' | 'lyon';
 
 interface CityInfo {
   key: CityKey;
@@ -43,6 +44,27 @@ const CITIES: Record<CityKey, CityInfo> = {
     yPercent: 26.5,
     image: parisImage,
     imageCaption: 'Paris histórica ao entardecer — Rue Cadet e a memória documental do Século das Luzes',
+  },
+  versalhes: {
+    key: 'versalhes',
+    name: 'Versalhes',
+    coords: "48°48'N · 02°07'E",
+    stageNum: 'I-A',
+    subtitle: 'A Corte e o Século das Luzes',
+    description:
+      'O ambiente da monarquia francesa, a sociabilidade aristocrática e as relações entre poder, cultura, filosofia e Maçonaria no século XVIII.',
+    historicalSites: [
+      'Château de Versailles',
+      'Galerie des Glaces',
+      'Jardins de Versailles',
+      'Grand Trianon e Petit Trianon',
+      'Hameau de la Reine',
+      'Personagens e sociabilidade maçônica',
+    ],
+    xPercent: 54.5,
+    yPercent: 28.5,
+    image: versaillesImage,
+    imageCaption: 'Château de Versailles — A monumentalidade da corte e o ambiente intelectual setecentista',
   },
   chartres: {
     key: 'chartres',
@@ -84,7 +106,7 @@ const CITIES: Record<CityKey, CityInfo> = {
   },
 };
 
-const CITY_KEYS: CityKey[] = ['paris', 'chartres', 'lyon'];
+const CITY_KEYS: CityKey[] = ['paris', 'versalhes', 'chartres', 'lyon'];
 
 export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperience }) => {
   const [selectedCity, setSelectedCity] = useState<CityKey>('lyon');
@@ -148,7 +170,7 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050708]/40 to-[#050708]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full pt-20 md:pt-28 pb-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full pt-[320px] sm:pt-[360px] md:pt-[400px] lg:pt-[430px] pb-20">
         
         {/* 01. EDITORIAL HEADER — Art Publication Standard */}
         <header className="pb-10 md:pb-14 border-b border-[#A7A29A]/15">
@@ -258,6 +280,45 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
                       </div>
                       <div className="text-[10px] text-[#F0E9DC]/90 italic font-serif">
                         O Iluminismo & O Debate das Luzes
+                      </div>
+                      <div className="text-[9px] text-[#A7A29A] mt-0.5 font-sans uppercase tracking-wider">
+                        Toque para abrir fotografia e detalhes
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ============================================================ */}
+                {/* INTERACTIVE CITY HOTSPOT: VERSALHES (54.5% X, 28.5% Y)       */}
+                {/* ============================================================ */}
+                <div
+                  style={{ left: `${CITIES.versalhes.xPercent}%`, top: `${CITIES.versalhes.yPercent}%` }}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-30 group/versalhesMarker"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleOpenCityModal('versalhes');
+                  }}
+                  title="Ver detalhes de Versalhes"
+                >
+                  <div className="relative flex items-center justify-center">
+                    <span className="absolute w-8 h-8 rounded-full bg-[#C49A45]/40 animate-ping pointer-events-none" />
+                    <div
+                      className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 flex items-center justify-center transition-all duration-300 shadow-2xl ${
+                        selectedCity === 'versalhes'
+                          ? 'border-[#DFC07D] bg-[#C49A45] text-[#050708] scale-125'
+                          : 'border-[#C49A45] bg-[#071118]/95 text-[#DFC07D] hover:scale-115 hover:border-[#DFC07D]'
+                      }`}
+                    >
+                      <MapPin className="w-4 h-4" />
+                    </div>
+
+                    {/* Floating Editorial Badge Tooltip */}
+                    <div className="absolute bottom-full mb-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#071118]/95 border border-[#C49A45] px-3.5 py-1.5 text-center shadow-2xl pointer-events-none opacity-0 group-hover/versalhesMarker:opacity-100 transition-opacity duration-200 z-40">
+                      <div className="text-[10px] uppercase tracking-[0.2em] text-[#C49A45] font-semibold">
+                        Etapa I-A · Versalhes
+                      </div>
+                      <div className="text-[10px] text-[#F0E9DC]/90 italic font-serif">
+                        A Corte e o Século das Luzes
                       </div>
                       <div className="text-[9px] text-[#A7A29A] mt-0.5 font-sans uppercase tracking-wider">
                         Toque para abrir fotografia e detalhes
@@ -387,7 +448,7 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
                 </div>
 
                 <div className="text-[10px] text-[#A7A29A] tracking-wider uppercase font-light">
-                  Paris → Chartres → Lyon · 16 a 25 de Outubro de 2027
+                  Paris → Versalhes → Chartres → Lyon · 16 a 25 de Outubro de 2027
                 </div>
               </div>
             </div>
@@ -403,13 +464,13 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[#F0E9DC] font-light tracking-tight">
               O Tríptico da <span className="text-[#C49A45] italic">Tradição Francesa</span>
             </h2>
-            <p className="text-sm sm:text-base text-[#A7A29A] font-light max-w-2xl mt-1">
-              Três cidades fundamentais, cada qual representando um vértice indispensável para compreender a arquitetura espiritual, intelectual e ritualística do Regime Escocês Retificado.
+            <p className="text-sm sm:text-base text-[#A7A29A] font-light max-w-3xl mt-1">
+              Quatro destinos fundamentais, cada qual representando um vértice indispensável para compreender a arquitetura espiritual, intelectual e ritualística do Regime Escocês Retificado.
             </p>
           </div>
 
-          {/* 3-Column Editorial Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 items-stretch">
+          {/* 4-Column Editorial Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8 items-stretch">
             {CITY_KEYS.map((k) => {
               const c = CITIES[k];
               const isSelected = selectedCity === k;
@@ -542,7 +603,7 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
         <footer className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#A7A29A]/15 text-xs text-[#A7A29A]">
           <div className="flex items-center gap-3 tracking-[0.25em] uppercase text-[11px]">
             <MapPin className="w-3.5 h-3.5 text-[#C49A45]" />
-            <span>Itinerário Completo: Paris → Chartres → Lyon</span>
+            <span>Itinerário Completo: Paris → Versalhes → Chartres → Lyon</span>
           </div>
 
           <div className="text-[11px] tracking-[0.2em] uppercase font-light text-[#A7A29A]/80">

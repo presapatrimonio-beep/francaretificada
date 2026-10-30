@@ -44,7 +44,7 @@ export const InstitutionalSection: React.FC = () => {
             
             {/* Lado Esquerdo: Brasão Oficial Destacado em Proporções Originais */}
             <div className="lg:col-span-5 flex flex-col items-center justify-center">
-              <div className="relative group p-6 sm:p-8 bg-gradient-to-b from-[#0d131a]/80 via-[#070b10] to-[#040608] border border-[#C49A45]/40 shadow-[0_20px_60px_rgba(0,0,0,0.85)] max-w-sm w-full flex flex-col items-center text-center">
+              <div className="relative group p-6 sm:p-8 bg-gradient-to-b from-[#0d131a]/80 via-[#070b10] to-[#040608] border border-[#C49A45]/40 shadow-[0_20px_60px_rgba(0,0,0,0.85)] max-w-md w-full flex flex-col items-center text-center">
                 
                 {/* Linha decorativa no topo */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-[2px] bg-gradient-to-r from-transparent via-[#DFC07D] to-transparent" />
@@ -54,7 +54,7 @@ export const InstitutionalSection: React.FC = () => {
                   <img
                     src="/assets/aistudio/priorado_eddc943e.png"
                     alt="Brasão Oficial do Grande Priorado do Rito Escocês Retificado do Brasil"
-                    className="h-56 sm:h-64 md:h-72 w-auto object-contain drop-shadow-[0_12px_30px_rgba(0,0,0,0.95)] transform group-hover:scale-[1.02] transition-transform duration-500"
+                    className="h-64 sm:h-72 md:h-80 lg:h-96 w-auto object-contain drop-shadow-[0_12px_35px_rgba(0,0,0,0.95)] transform group-hover:scale-[1.02] transition-transform duration-500"
                   />
                 </div>
 
