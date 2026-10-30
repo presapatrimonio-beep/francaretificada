@@ -1,5 +1,6 @@
 import React from 'react';
 import { Shield, Compass, Plane, CheckCircle2, Award, Globe, Instagram, ExternalLink } from 'lucide-react';
+import { ExpeditionAppShowcase } from './ExpeditionAppShowcase';
 
 export const InstitutionalSection: React.FC = () => {
   return (
@@ -238,6 +239,11 @@ export const InstitutionalSection: React.FC = () => {
 
           </div>
         </div>
+
+        {/* ==================================================================== */}
+        {/* CAPÍTULO III — O APLICATIVO OFICIAL DA EXPEDIÇÃO                    */}
+        {/* ==================================================================== */}
+        <ExpeditionAppShowcase />
       </section>
     </div>
   );
