@@ -41,6 +41,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'Willermoz', href: '#willermoz' },
     { label: 'O Regime', href: '#regime' },
     { label: 'O Percurso', href: '#percurso' },
+    { label: 'Custeio', href: '#investimento' },
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {

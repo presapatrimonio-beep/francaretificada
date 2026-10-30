@@ -10,11 +10,12 @@ import { CulturalFormationSection } from './components/CulturalFormationSection'
 import { ItinerarySection } from './components/ItinerarySection';
 import { InvestmentSection } from './components/InvestmentSection';
 import { ClosingSection } from './components/ClosingSection';
-import { DossierModal } from './components/DossierModal';
+import { DossierModal, DossierModalMode } from './components/DossierModal';
 import { ambientAudio } from './utils/ambientAudio';
 
 export default function App() {
   const [isDossierOpen, setIsDossierOpen] = useState(false);
+  const [dossierMode, setDossierMode] = useState<DossierModalMode>('cotacao');
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isAudioActive, setIsAudioActive] = useState(false);
 
@@ -50,6 +51,16 @@ export default function App() {
     }
   };
 
+  const handleOpenQuote = () => {
+    setDossierMode('cotacao');
+    setIsDossierOpen(true);
+  };
+
+  const handleOpenInterest = () => {
+    setDossierMode('interesse');
+    setIsDossierOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-[#050708] text-[#F0E9DC] selection:bg-[#C49A45]/30 selection:text-[#F0E9DC] relative">
       {/* 00. TELA DE ABERTURA CINEMATOGRÁFICA (Vídeo abertura.mp4 em tela cheia com botão ENTRAR) */}
@@ -67,7 +78,7 @@ export default function App() {
 
       {/* Top Bar with 3-zone contract and optional contemplative audio */}
       <Navbar
-        onOpenDossier={() => setIsDossierOpen(true)}
+        onOpenDossier={handleOpenQuote}
         isAudioActive={isAudioActive}
         onToggleAudio={handleToggleAudio}
       />
@@ -95,17 +106,23 @@ export default function App() {
         {/* 06. ROTEIRO DE 10 DIAS (Linha Narrativa Contínua Integrada) */}
         <ItinerarySection />
 
-        {/* 07. INVESTIMENTO: UMA EXPERIÊNCIA QUE VAI ALÉM DO TURISMO */}
-        <InvestmentSection onOpenDossier={() => setIsDossierOpen(true)} />
+        {/* 07. PROJEÇÃO DO CUSTEIO POR PARTICIPANTE — CONDIÇÕES COMERCIAIS */}
+        <InvestmentSection
+          onOpenDossier={handleOpenQuote}
+          onOpenQuote={handleOpenQuote}
+          onOpenInterest={handleOpenInterest}
+        />
 
         {/* 08. ENCERRAMENTO CINEMATOGRÁFICO: A FRANÇA ESPERA. A HISTÓRIA CONTINUA. */}
-        <ClosingSection onOpenDossier={() => setIsDossierOpen(true)} />
+        <ClosingSection onOpenDossier={handleOpenInterest} />
       </main>
 
-      {/* Modal do Dossiê Completo */}
+      {/* Modal do Dossiê Completo / Manifestação de Interesse */}
       <DossierModal
         isOpen={isDossierOpen}
         onClose={() => setIsDossierOpen(false)}
+        mode={dossierMode}
+        onModeChange={setDossierMode}
       />
     </div>
   );
