@@ -91,13 +91,13 @@ export const DossierModal: React.FC<DossierModalProps> = ({
     try {
       await new Promise((resolve) => setTimeout(resolve, 800));
 
-      const stored = JSON.parse(localStorage.getItem('colegio_iniciatico_leads') || '[]');
+      const stored = JSON.parse(localStorage.getItem('franca_retificada_leads') || '[]');
       stored.push({
         ...formData,
         actionType: activeMode,
         submittedAt: new Date().toISOString(),
       });
-      localStorage.setItem('colegio_iniciatico_leads', JSON.stringify(stored));
+      localStorage.setItem('franca_retificada_leads', JSON.stringify(stored));
 
       setIsSubmitting(false);
       setIsSuccess(true);
@@ -154,7 +154,7 @@ export const DossierModal: React.FC<DossierModalProps> = ({
             </div>
 
             <p className="text-sm text-[#A7A29A] max-w-md mx-auto leading-relaxed font-light">
-              Recebemos suas informações com rigor e discrição. A coordenação do <strong className="text-[#F0E9DC]">Colégio Iniciático</strong> entrará em contato pelo e-mail <span className="text-[#DFC07D] font-mono">{formData.email}</span> e telefone informado.
+              Recebemos suas informações com rigor e discrição. A coordenação da <strong className="text-[#F0E9DC]">Expedição França Retificada 2027</strong> entrará em contato pelo e-mail <span className="text-[#DFC07D] font-mono">{formData.email}</span> e telefone informado.
             </p>
 
             <div className="p-3.5 bg-[#050305] border border-[#A7A29A]/15 text-xs text-[#A7A29A] max-w-md mx-auto">
@@ -207,7 +207,7 @@ export const DossierModal: React.FC<DossierModalProps> = ({
             {/* Modal Header */}
             <div className="mb-6">
               <div className="text-[11px] uppercase tracking-[0.3em] text-[#C49A45] font-medium mb-1.5">
-                FRANÇA · 16–25 OUTUBRO 2027 · COLÉGIO INICIÁTICO
+                FRANÇA · 16–25 OUTUBRO 2027 · EXPEDIÇÃO RETIFICADA
               </div>
               <h3 id="modal-title" className="font-serif text-2xl sm:text-3xl text-[#F0E9DC] font-light">
                 {isInteresse ? 'Manifestação de Interesse na Excursão' : 'Solicitação de Cotação Atualizada'}

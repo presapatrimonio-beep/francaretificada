@@ -9,6 +9,7 @@ import { HistoricalDocuSection } from './components/HistoricalDocuSection';
 import { CulturalFormationSection } from './components/CulturalFormationSection';
 import { ItinerarySection } from './components/ItinerarySection';
 import { InvestmentSection } from './components/InvestmentSection';
+import { InstitutionalSection } from './components/InstitutionalSection';
 import { ClosingSection } from './components/ClosingSection';
 import { DossierModal, DossierModalMode } from './components/DossierModal';
 import { ambientAudio } from './utils/ambientAudio';
@@ -113,7 +114,10 @@ export default function App() {
           onOpenInterest={handleOpenInterest}
         />
 
-        {/* 08. ENCERRAMENTO CINEMATOGRÁFICO: A FRANÇA ESPERA. A HISTÓRIA CONTINUA. */}
+        {/* 08. CAPÍTULOS INSTITUCIONAL E OPERACIONAL: APOIO INSTITUCIONAL (GPRER) & OPERAÇÃO TURÍSTICA (CVC) */}
+        <InstitutionalSection />
+
+        {/* 09. ENCERRAMENTO CINEMATOGRÁFICO: A FRANÇA ESPERA. A HISTÓRIA CONTINUA. */}
         <ClosingSection onOpenDossier={handleOpenInterest} />
       </main>
 

@@ -61,19 +61,14 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({ onOpenDossier })
         <footer className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full pt-16 border-t border-[#A7A29A]/15 mt-16 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-[#A7A29A] font-light">
           <div className="flex items-center gap-3">
             <span className="font-serif text-sm tracking-[0.25em] text-[#F0E9DC] uppercase font-medium">
-              Colégio Iniciático
+              França Retificada 2027
             </span>
           </div>
 
           <div className="flex items-center gap-6 text-xs tracking-wider">
-            <a
-              href="https://www.colegioiniciatico.com.br"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#F0E9DC]/80 hover:text-[#C49A45] transition-colors"
-            >
-              www.colegioiniciatico.com.br
-            </a>
+            <span className="text-[#DFC07D]/90 uppercase tracking-[0.2em] font-light">
+              Nas pegadas de Jean-Baptiste Willermoz
+            </span>
           </div>
         </footer>
       </div>

@@ -104,7 +104,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onDiscover }) => {
           <ChevronDown className="w-4 h-4 transform group-hover:translate-y-1 transition-transform" />
         </button>
 
-        <span className="hidden sm:inline text-[11px] text-[#A7A29A]/70">Colégio Iniciático</span>
+        <span className="hidden sm:inline text-[11px] text-[#A7A29A]/70 uppercase tracking-widest font-light">França Retificada 2027</span>
       </div>
 
       <style>{`

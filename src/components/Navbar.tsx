@@ -42,6 +42,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'O Regime', href: '#regime' },
     { label: 'O Percurso', href: '#percurso' },
     { label: 'Custeio', href: '#investimento' },
+    { label: 'Apoio Institucional', href: '#apoio-institucional' },
+    { label: 'Operação Turística', href: '#operacao-turistica' },
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -49,34 +51,44 @@ export const Navbar: React.FC<NavbarProps> = ({
     setMobileMenuOpen(false);
     const target = document.querySelector(href);
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+      const headerOffset = 90;
+      const elementPosition = target.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         hiddenNav ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'
       } ${
         scrolled
-          ? 'bg-[#050708]/85 backdrop-blur-md border-b border-[#A7A29A]/15 py-3.5 shadow-2xl'
-          : 'bg-gradient-to-b from-[#050708]/90 via-[#050708]/30 to-transparent py-5'
+          ? 'bg-[#050708]/95 backdrop-blur-md border-b border-[#A7A29A]/20 py-3.5 shadow-2xl'
+          : 'bg-gradient-to-b from-[#050708]/95 via-[#050708]/80 to-transparent backdrop-blur-sm border-b border-[#A7A29A]/10 py-4'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between gap-8">
-        {/* Brand wordmark */}
+      <div className="max-w-[1700px] mx-auto px-6 md:px-10 flex items-center justify-between gap-6">
+        {/* Identidade da Expedição à Esquerda */}
         <a
           href="#atlas"
           onClick={(e) => handleLinkClick(e, '#atlas')}
-          className="group flex items-center gap-3 whitespace-nowrap shrink-0 text-decoration-none cursor-pointer"
+          className="group flex flex-col shrink-0 text-decoration-none cursor-pointer"
+          title="Atlas da França Retificada 2027"
         >
-          <span className="font-serif text-lg md:text-xl font-normal tracking-[0.25em] text-[#F0E9DC] group-hover:text-[#C49A45] transition-colors uppercase">
-            Colégio Iniciático
+          <span className="font-serif text-lg md:text-xl font-normal tracking-[0.22em] text-[#F0E9DC] group-hover:text-[#C49A45] transition-colors uppercase leading-none">
+            França Retificada
+          </span>
+          <span className="text-[9px] uppercase tracking-[0.3em] text-[#C49A45] font-sans font-light mt-1">
+            Expedição 2027
           </span>
         </a>
 
-        {/* Cinematic minimalist links */}
-        <nav className="hidden lg:flex items-center gap-9 text-xs uppercase tracking-[0.22em] font-medium text-[#F0E9DC]/75">
+        {/* Links de Navegação Editorial Completa */}
+        <nav className="hidden xl:flex items-center gap-5 2xl:gap-7 text-xs uppercase tracking-[0.18em] font-medium text-[#F0E9DC]/75 shrink-0">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -89,23 +101,25 @@ export const Navbar: React.FC<NavbarProps> = ({
           ))}
         </nav>
 
-        {/* Action zone with optional atmospheric audio toggle */}
-        <div className="flex items-center gap-5 shrink-0">
+        {/* Ações e Controles */}
+        <div className="flex items-center gap-4 shrink-0">
+          {/* Trilha Sonora cinematográfica */}
           {onToggleAudio && (
             <button
               onClick={onToggleAudio}
-              className="hidden sm:flex items-center gap-2 text-xs uppercase tracking-widest text-[#A7A29A] hover:text-[#C49A45] transition-colors py-1 px-2"
+              className="hidden sm:flex items-center gap-2 text-xs uppercase tracking-widest text-[#A7A29A] hover:text-[#C49A45] transition-colors py-1 px-2 cursor-pointer"
               title={isAudioActive ? 'Pausar trilha sonora cinematográfica' : 'Ouvir trilha sonora cinematográfica (Piano & Orquestra)'}
               aria-label="Controle de trilha sonora cinematográfica"
             >
               {isAudioActive ? <Volume2 className="w-3.5 h-3.5 text-[#C49A45]" /> : <VolumeX className="w-3.5 h-3.5" />}
-              <span className="text-[10px] hidden md:inline">{isAudioActive ? 'Trilha Ativa' : 'Trilha Sonora'}</span>
+              <span className="text-[10px] hidden 2xl:inline">{isAudioActive ? 'Trilha Ativa' : 'Trilha Sonora'}</span>
             </button>
           )}
 
+          {/* Botão de Chamada para a Expedição */}
           <button
             onClick={onOpenDossier}
-            className="hidden sm:inline-flex items-center justify-center px-6 py-2.5 text-xs font-semibold tracking-[0.18em] uppercase text-[#050708] bg-[#C49A45] hover:bg-[#DFC07D] transition-colors whitespace-nowrap active:translate-y-px"
+            className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold tracking-[0.18em] uppercase text-[#050708] bg-[#C49A45] hover:bg-[#DFC07D] transition-colors whitespace-nowrap active:translate-y-px cursor-pointer"
           >
             Solicitar Informações
           </button>
@@ -113,7 +127,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-[#F0E9DC]/80 hover:text-[#C49A45] focus:outline-none"
+            className="xl:hidden p-2 text-[#F0E9DC]/80 hover:text-[#C49A45] focus:outline-none cursor-pointer"
             aria-label="Abrir menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -121,16 +135,16 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* Mobile drawer */}
+      {/* Menu Gaveta Mobile com Todos os 8 Capítulos da Landing Page */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#071923]/98 border-b border-[#A7A29A]/20 px-6 py-6 transition-all">
-          <nav className="flex flex-col gap-5 text-sm uppercase tracking-[0.2em] font-medium text-[#F0E9DC]/85">
+        <div className="xl:hidden bg-[#071923]/98 border-b border-[#A7A29A]/20 px-6 py-6 transition-all shadow-2xl">
+          <nav className="flex flex-col gap-4 text-sm uppercase tracking-[0.2em] font-medium text-[#F0E9DC]/85">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleLinkClick(e, link.href)}
-                className="py-2 hover:text-[#C49A45] border-b border-white/5 transition-colors"
+                className="py-2.5 hover:text-[#C49A45] border-b border-white/5 transition-colors"
               >
                 {link.label}
               </a>
@@ -138,19 +152,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             {onToggleAudio && (
               <button
                 onClick={onToggleAudio}
-                className="flex items-center justify-between py-2 text-xs uppercase tracking-widest text-[#A7A29A] hover:text-[#C49A45] border-b border-white/5"
+                className="flex items-center justify-between py-2.5 text-xs uppercase tracking-widest text-[#A7A29A] hover:text-[#C49A45] border-b border-white/5 cursor-pointer"
               >
                 <span>Trilha Cinematográfica</span>
                 <span className="text-[#C49A45]">{isAudioActive ? 'Ativada' : 'Desativada'}</span>
               </button>
             )}
-            <div className="pt-2">
+            <div className="pt-3">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onOpenDossier();
                 }}
-                className="w-full py-3.5 text-center text-xs font-semibold tracking-[0.2em] uppercase text-[#050708] bg-[#C49A45] hover:bg-[#DFC07D] transition-colors"
+                className="w-full py-3.5 text-center text-xs font-semibold tracking-[0.2em] uppercase text-[#050708] bg-[#C49A45] hover:bg-[#DFC07D] transition-colors cursor-pointer"
               >
                 Solicitar Informações
               </button>

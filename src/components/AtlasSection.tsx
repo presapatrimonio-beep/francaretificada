@@ -156,7 +156,7 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
             <div className="space-y-3 max-w-3xl">
               <div className="flex items-center gap-3 text-xs tracking-[0.35em] text-[#C49A45] uppercase font-medium">
                 <Compass className="w-3.5 h-3.5 text-[#C49A45]" />
-                <span>Colégio Iniciático · Cartografia Histórica · 1778–1782</span>
+                <span>França Retificada · Cartografia Histórica · 1778–1782</span>
               </div>
               <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#F0E9DC] font-light tracking-tight leading-[1.05]">
                 Atlas da <span className="font-normal text-[#C49A45] italic">França Retificada</span>
@@ -546,7 +546,7 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
           </div>
 
           <div className="text-[11px] tracking-[0.2em] uppercase font-light text-[#A7A29A]/80">
-            Edição Outubro de 2027 · Colégio Iniciático
+            Edição Outubro de 2027 · França Retificada
           </div>
         </footer>
       </div>
@@ -578,7 +578,7 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
                     Atlas da França Retificada <span className="text-[#C49A45] italic font-normal">· Projeção Histórica</span>
                   </h3>
                   <p className="text-[10px] text-[#A7A29A] tracking-wider uppercase">
-                    Colégio Iniciático · Nas pegadas de Jean-Baptiste Willermoz
+                    Expedição 2027 · Nas pegadas de Jean-Baptiste Willermoz
                   </p>
                 </div>
               </div>
@@ -665,7 +665,7 @@ export const AtlasSection: React.FC<AtlasSectionProps> = ({ onProceedToExperienc
               </div>
 
               <div className="text-[10px] text-[#C49A45] uppercase tracking-[0.2em] font-medium">
-                16 a 25 de Outubro de 2027 · Colégio Iniciático
+                16 a 25 de Outubro de 2027 · França Retificada
               </div>
             </div>
           </div>
