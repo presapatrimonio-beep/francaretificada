@@ -433,7 +433,7 @@ export const ExpeditionAppShowcase: React.FC = () => {
               onClick={() => setIsLightboxOpen(true)}
             >
               <img
-                src="/assets/aistudio/image_dc5cf984.png"
+                src="/app.png"
                 alt="Montagem visual com as 15 telas principais do aplicativo oficial França Retificada 2027"
                 className="w-full h-auto object-contain filter contrast-[1.03] brightness-[0.98] transition-transform duration-700 ease-out group-hover:scale-[1.01]"
                 loading="eager"
@@ -1063,7 +1063,7 @@ export const ExpeditionAppShowcase: React.FC = () => {
             {/* Imagem com scroll e visualização completa */}
             <div className="relative flex-1 w-full overflow-auto bg-[#030508] p-4 flex items-center justify-center">
               <img
-                src="/assets/aistudio/image_dc5cf984.png"
+                src="/app.png"
                 alt="Interfaces do aplicativo oficial da expedição França Retificada 2027"
                 className="max-h-[85vh] w-auto object-contain filter contrast-[1.04]"
               />
